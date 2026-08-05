@@ -1722,7 +1722,6 @@
         }
 
         function switchTab(tabName) {
-           if (window.innerWidth <=768) { document.getElementById('appsidebar').style.display ='none'; }
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
 
@@ -1791,5 +1790,22 @@
   }
 }
 </style>
+    <script>
+  // Método definitivo para cerrar el menú lateral en móviles al hacer clic en cualquier opción
+  document.addEventListener('click', function(event) {
+    if (window.innerWidth <= 768) {
+      const sidebar = document.getElementById('appsidebar');
+      // Si el menú está visible y haces clic en un enlace de navegación o dentro del menú
+      if (sidebar && (event.target.closest('#appsidebar a') || event.target.closest('.nav-links a'))) {
+        sidebar.style.cssText = 'display: none !important;';
+        // Limpiamos el estilo forzado después de un momento para que vuelva a funcionar normal al abrirlo con el botón
+        setTimeout(() => {
+          sidebar.style.removeProperty('display');
+          sidebar.classList.remove('active'); // O la clase que use tu menú para abrirse
+        }, 300);
+      }
+    }
+  });
+</script>
 </body>
 </html>
