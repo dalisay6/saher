@@ -1756,49 +1756,7 @@
             }
         }
     </script>
-<style>
-/* Estilos responsivos y menú desplegable para celulares */
-@media screen and (max-width: 768px) {
-  /* Hacer que el contenido principal ocupe todo el ancho */
-  body, .main-content, .container {
-    width: 100% !important;
-    margin-left: 0 !important;
-    padding: 10px !important;
-    box-sizing: border-box;
-  }
-
-  /* Ocultar el menú lateral por defecto en móviles y ponerlo flotante */
-  aside, .sidebar, nav.menu {
-    position: fixed;
-    left: -280px; /* Escondido a la izquierda */
-    top: 0;
-    width: 260px;
-    height: 100%;
-    z-index: 1000;
-    transition: left 0.3s ease;
-    background-color: var(--bg-secondary, #121e2b);
-  }
-
-  /* Clase para mostrar el menú cuando se presione el botón */
-  aside.active, .sidebar.active, nav.menu.active {
-    left: 0;
-  }
-
-  /* Ajustar tablas y elementos */
-  table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    width: 100% !important;
-  }
-
-  input, select, button {
-    max-width: 100% !important;
-    box-sizing: border-box;
-  }
-}
-</style>
-<style>
+    <style>
 @media screen and (max-width: 768px) {
   /* Forzar que todo el contenedor ocupe el ancho exacto de la pantalla sin desbordarse */
   body, html {
@@ -1832,36 +1790,7 @@
   }
 }
 </style>
-    <script>
-  // Script de persistencia automática para respaldar formularios y tablas en el navegador
-  window.addEventListener('beforeunload', function() {
-    try {
-      // Guarda los inputs y textos actuales para que no se pierdan al recargar
-      let inputsData = {};
-      document.querySelectorAll('input, select').forEach((el, index) => {
-        if(el.id || el.name) {
-          inputsData[el.id || el.name] = el.value;
-        }
-      });
-      localStorage.setItem('saher_backup_inputs', JSON.stringify(inputsData));
-    } catch(e) { console.log(e); }
-  });
-
-  // Restaurar datos al cargar la página
-  window.addEventListener('DOMContentLoaded', function() {
-    try {
-      let saved = localStorage.getItem('saher_backup_inputs');
-      if(saved) {
-        let inputsData = JSON.parse(saved);
-        Object.keys(inputsData).forEach(key => {
-          let el = document.getElementById(key) || document.querySelector(`[name="${key}"]`);
-          if(el) el.value = inputsData[key];
-        });
-      }
-    } catch(e) { console.log(e); }
-  });
-</script>
-   <script type="module">
+    <script type="module">
   // Importar Firebase SDKs necesarios
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
   import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
