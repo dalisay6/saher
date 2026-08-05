@@ -6,8 +6,11 @@
     <title>Grupo SAHER - Sistema Integral Hípico</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @media (max-width: 768px) {
-    #appsidebar:not(.active):not(.open) {
+      @media (max-width: 768px) {
+    /* Oculta cualquier contenedor principal de menú lateral cuando no esté desplegado */
+    aside:not(.active):not(.open), 
+    [id*="sidebar"]:not(.active):not(.open), 
+    [class*="sidebar"]:not(.active):not(.open) {
         display: none !important;
     }
 }
