@@ -1798,5 +1798,82 @@
   }
 }
 </style>
+    <style>
+/* Botón de menú móvil oculto en PC, visible en celulares */
+#btn-menu-mobile {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  /* Mostrar el botón de menú en celular */
+  #btn-menu-mobile {
+    display: block;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1100;
+    background: var(--accent-gold, #d4af37);
+    color: #000;
+    border: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  /* Ocultar menú lateral por defecto en móviles */
+  aside, .sidebar {
+    position: fixed;
+    left: -280px;
+    top: 0;
+    width: 260px;
+    height: 100%;
+    z-index: 1000;
+    transition: left 0.3s ease;
+    background-color: var(--bg-secondary, #121e2b);
+    overflow-y: auto;
+  }
+
+  /* Clase que activa la apertura del menú */
+  aside.mobile-open, .sidebar.mobile-open {
+    left: 0;
+  }
+
+  /* Contenido principal a pantalla completa */
+  .main-content, .container {
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding: 10px !important;
+  }
+}
+</style>
+
+<script>
+  // Crear y agregar el botón de menú flotante en dispositivos móviles automáticamente
+  window.addEventListener('DOMContentLoaded', function() {
+    if (window.innerWidth <= 768) {
+      let btn = document.createElement('button');
+      btn.id = 'btn-menu-mobile';
+      btn.innerHTML = '☰ Menú';
+      document.body.appendChild(btn);
+
+      let menu = document.querySelector('aside') || document.querySelector('.sidebar');
+      
+      if (btn && menu) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          menu.classList.toggle('mobile-open');
+        });
+
+        // Cerrar menú al hacer clic fuera de él
+        document.addEventListener('click', function(e) {
+          if (!menu.contains(e.target) && e.target !== btn) {
+            menu.classList.remove('mobile-open');
+          }
+        });
+      }
+    }
+  });
+</script>
 </body>
 </html>
