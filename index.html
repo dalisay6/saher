@@ -1756,5 +1756,32 @@
             }
         }
     </script>
+    <style>
+/* Estilos responsivos para celulares y tablets */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 5px;
+    font-size: 14px;
+  }
+  .container, .main-content, .card, table {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  h1 { font-size: 20px; }
+  h2 { font-size: 18px; }
+  h3 { font-size: 16px; }
+  button, input, select {
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 10px;
+  }
+}
+</style>
 </body>
 </html>
