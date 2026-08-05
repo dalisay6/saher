@@ -7,1034 +7,1018 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 :root {
-  --bg-primary: #0a1118;
-  --bg-secondary: #121e2b;
-  --bg-card: #1a2a3a;
-  --accent-gold: #d4af37;
-  --accent-gold-hover: #f3cf55;
-  --text-main: #e2e8f0;
-  --text-muted: #94a3b8;
-  --border-color: #2a3e52;
-  --success: #10b981;
-  --danger: #ef4444;
-  --warning: #f59e0b;
+    --bg-primary: #0a1118;
+    --bg-secondary: #121e2b;
+    --bg-card: #1a2a3a;
+    --accent-gold: #d4af37;
+    --accent-gold-hover: #f3cf55;
+    --text-main: #e2e8f0;
+    --text-muted: #94a3b8;
+    --border-color: #2a3e52;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
 }
-
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-
 body {
-  background-color: var(--bg-primary);
-  color: var(--text-main);
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-/* Pantalla de Login */
 #loginOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--bg-primary);
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-primary);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
 .login-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  padding: 30px;
-  border-radius: 12px;
-  width: 350px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    border-radius: 12px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
-
 .login-card h2 {
-  color: var(--accent-gold);
-  text-align: center;
-  font-size: 1.4rem;
+    color: var(--accent-gold);
+    text-align: center;
+    font-size: 1.4rem;
 }
-
-/* Sidebar Navegación */
 .sidebar {
-  width: 260px;
-  background-color: var(--bg-secondary);
-  border-right: 1px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
-  padding: 20px 0;
+    width: 260px;
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
 }
-
 .brand {
-  padding: 0 20px 20px;
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: var(--accent-gold);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-bottom: 1px solid var(--border-color);
+    padding: 0 20px 20px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--accent-gold);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border-color);
 }
-
 .nav-links {
-  list-style: none;
-  margin-top: 20px;
-  flex: 1;
-  overflow-y: auto;
+    list-style: none;
+    margin-top: 20px;
+    flex: 1;
+    overflow-y: auto;
 }
-
 .nav-links li a {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 20px;
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
 }
-
 .nav-links li a:hover, .nav-links li a.active {
-  color: var(--accent-gold);
-  background-color: rgba(212, 175, 55, 0.08);
-  border-left: 4px solid var(--accent-gold);
+    color: var(--accent-gold);
+    background-color: rgba(212, 175, 55, 0.08);
+    border-left: 4px solid var(--accent-gold);
 }
-
-/* Contenido Principal */
 .main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
 }
-
 header {
-  background-color: var(--bg-secondary);
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border-color);
+    background-color: var(--bg-secondary);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
 }
-
 .header-title h1 {
-  font-size: 1.2rem;
-  color: var(--text-main);
+    font-size: 1.2rem;
+    color: var(--text-main);
 }
-
 .header-info {
-  display: flex;
-  gap: 15px;
-  align-items: center;
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
-
 .badge-cashier {
-  background: rgba(212, 175, 55, 0.15);
-  color: var(--accent-gold);
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border: 1px solid var(--accent-gold);
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--accent-gold);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid var(--accent-gold);
 }
-
 .view-section {
-  padding: 25px 30px;
-  display: none;
+    padding: 25px 30px;
+    display: none;
 }
-
 .view-section.active {
-  display: block;
+    display: block;
 }
-
 .form-container {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 25px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
 }
-
 .form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
 }
-
 .filter-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
-
 .filter-group label {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
 }
-
 .filter-control {
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  color: var(--text-main);
-  padding: 10px 14px;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  outline: none;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    outline: none;
 }
-
 .filter-control:focus {
-  border-color: var(--accent-gold);
+    border-color: var(--accent-gold);
 }
-
 .btn {
-  padding: 10px 18px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s ease;
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
 }
-
 .btn-gold {
-  background-color: var(--accent-gold);
-  color: #000;
+    background-color: var(--accent-gold);
+    color: #000;
 }
-
 .btn-gold:hover {
-  background-color: var(--accent-gold-hover);
+    background-color: var(--accent-gold-hover);
 }
-
 .btn-danger {
-  background-color: rgba(239, 68, 68, 0.15);
-  color: var(--danger);
-  border: 1px solid var(--danger);
+    background-color: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+    border: 1px solid var(--danger);
 }
-
 .btn-danger:hover {
-  background-color: var(--danger);
-  color: #fff;
+    background-color: var(--danger);
+    color: #fff;
 }
-
 .btn-success {
-  background-color: rgba(16, 185, 129, 0.15);
-  color: var(--success);
-  border: 1px solid var(--success);
+    background-color: rgba(16, 185, 129, 0.15);
+    color: var(--success);
+    border: 1px solid var(--success);
 }
-
 .btn-success:hover {
-  background-color: var(--success);
-  color: #fff;
+    background-color: var(--success);
+    color: #fff;
 }
-
 .table-container {
-  background-color: var(--bg-card);
-  border-radius: 10px;
-  border: 1px solid var(--border-color);
-  overflow: hidden;
-  margin-bottom: 25px;
+    background-color: var(--bg-card);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    margin-bottom: 25px;
 }
-
 .table-header-title {
-  padding: 16px 20px;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid var(--border-color);
-  font-size: 0.95rem;
-  color: var(--accent-gold);
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    padding: 16px 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.95rem;
+    color: var(--accent-gold);
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-
 table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 0.9rem;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.9rem;
 }
-
 th {
-  background-color: var(--bg-secondary);
-  color: var(--text-muted);
-  padding: 12px 18px;
-  font-weight: 600;
-  border-bottom: 1px solid var(--border-color);
+    background-color: var(--bg-secondary);
+    color: var(--text-muted);
+    padding: 12px 18px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
 }
-
 td {
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--border-color);
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border-color);
 }
-
 tr:hover td {
-  background-color: rgba(255, 255, 255, 0.02);
+    background-color: rgba(255, 255, 255, 0.02);
 }
-
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  margin-bottom: 25px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
 }
-
 .stat-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
-
 .stat-card span {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
 }
-
 .stat-card h3 {
-  font-size: 1.3rem;
-  color: var(--accent-gold);
+    font-size: 1.3rem;
+    color: var(--accent-gold);
 }
-
 .tracks-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 15px;
-  margin-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
 }
-
 .track-checkbox-card {
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  padding: 12px 16px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  transition: all 0.2s ease;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 12px 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
-
 .track-checkbox-card:hover {
-  border-color: var(--accent-gold);
+    border-color: var(--accent-gold);
 }
-
 .track-checkbox-card input {
-  accent-color: var(--accent-gold);
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
+    accent-color: var(--accent-gold);
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
 }
-
 .stream-container {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 25px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
 }
-
 .video-responsive {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  overflow: hidden;
-  border-radius: 8px;
-  background: #000;
-  margin-top: 15px;
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #000;
+    margin-top: 15px;
 }
-
 .video-responsive iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
 }
-
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.75);
-  z-index: 1100;
-  display: none;
-  justify-content: center;
-  align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 1100;
+    display: none;
+    justify-content: center;
+    align-items: center;
 }
-
 .modal-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  padding: 25px;
-  border-radius: 12px;
-  width: 500px;
-  max-height: 90vh;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 25px;
+    border-radius: 12px;
+    width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
-
 .modal-card h3 {
-  color: var(--accent-gold);
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    color: var(--accent-gold);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
-
 @media screen and (max-width: 768px) {
-  body, html {
-    width: 100% !important;
-    overflow-x: hidden !important;
-  }
-  .main-content, header, main, section {
-    width: 100% !important;
-    padding: 10px !important;
-  }
-  h1, h2, h3 {
-    font-size: 18px !important;
-  }
+    body, html {
+        width: 100% !important;
+        overflow-x: hidden !important;
+    }
+    .main-content, header, main, section {
+        width: 100% !important;
+        padding: 10px !important;
+    }
+    h1, h2, h3 {
+        font-size: 18px !important;
+    }
 }
 </style>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
-
 <!-- PANTALLA DE INICIO DE SESIÓN -->
 <div id="loginOverlay">
-  <form class="login-card" onsubmit="iniciarSesion(event)">
-    <h2><i class="fa-solid fa-trophy" style="color:var(--accent-gold);"></i> Grupo SAHER</h2>
-    <div class="filter-group">
-      <label>Usuario</label>
-      <input type="text" id="loginUser" class="filter-control" placeholder="Nombre de usuario" required autocomplete="username">
-    </div>
-    <div class="filter-group">
-      <label>Contraseña</label>
-      <input type="password" id="loginPass" class="filter-control" placeholder="Ingrese contraseña" required autocomplete="current-password">
-    </div>
-    <button type="submit" class="btn btn-gold" style="justify-content: center; width: 100%; margin-top: 10px;">Iniciar Sesión</button>
-  </form>
+<form class="login-card" onsubmit="iniciarSesion(event)">
+<h2><i class="fa-solid fa-trophy" style="color:var(--accent-gold);"></i> Grupo SAHER</h2>
+<div class="filter-group">
+<label>Usuario</label>
+<input type="text" id="loginUser" class="filter-control" placeholder="Nombre de usuario" required autocomplete="username">
+</div>
+<div class="filter-group">
+<label>Contraseña</label>
+<input type="password" id="loginPass" class="filter-control" placeholder="Ingrese contraseña" required autocomplete="current-password">
+</div>
+<button type="submit" class="btn btn-gold" style="justify-content: center; width: 100%; margin-top: 10px;">Iniciar Sesión</button>
+</form>
 </div>
 
 <!-- MODAL PARA PREMIAR TICKET -->
 <div id="modalPremiar" class="modal-overlay">
-  <div class="modal-card">
-    <h3><i class="fa-solid fa-trophy"></i> Asignar Premio a Ticket</h3>
-    <p style="font-size: 0.85rem; color: var(--text-muted);" id="modalTicketInfo">Ticket: #TK-0000 | Cliente: -</p>
-    <div class="filter-group">
-      <label>Monto del Premio a Abonar</label>
-      <input type="number" id="modalPremioMonto" class="filter-control" placeholder="0.00" min="0" step="0.01">
-    </div>
-    <div style="display: flex; gap: 10px; margin-top: 10px;">
-      <button class="btn btn-success" style="flex: 1; justify-content: center;" onclick="confirmarPremioTicket()">Confirmar y Pagar</button>
-      <button class="btn btn-danger" style="flex: 1; justify-content: center;" onclick="cerrarModalPremiar()">Cancelar</button>
-    </div>
-  </div>
+<div class="modal-card">
+<h3><i class="fa-solid fa-trophy"></i> Asignar Premio a Ticket</h3>
+<p style="font-size: 0.85rem; color: var(--text-muted);" id="modalTicketInfo">Ticket: #TK-0000 | Cliente: -</p>
+<div class="filter-group">
+<label>Monto del Premio a Abonar</label>
+<input type="number" id="modalPremioMonto" class="filter-control" placeholder="0.00" min="0" step="0.01">
+</div>
+<div style="display: flex; gap: 10px; margin-top: 10px;">
+<button class="btn btn-success" style="flex: 1; justify-content: center;" onclick="confirmarPremioTicket()">Confirmar y Pagar</button>
+<button class="btn btn-danger" style="flex: 1; justify-content: center;" onclick="cerrarModalPremiar()">Cancelar</button>
+</div>
+</div>
 </div>
 
 <!-- MODAL HISTORIAL DETALLADO DE CUADRE POR FECHA -->
 <div id="modalHistorialDetalle" class="modal-overlay">
-  <div class="modal-card" style="width: 950px; max-height: 95vh;">
-    <h3><i class="fa-solid fa-calendar-day"></i> Detalle de Cierre de Caja</h3>
-    <p style="font-size: 0.95rem; color: var(--accent-gold); font-weight: bold;" id="modalHistorialFecha">Fecha: --/--/----</p>
-    <div style="font-size: 0.85rem; background: var(--bg-secondary); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);" id="modalHistorialResumenGral"></div>
-    
-    <div style="display: flex; gap: 10px; align-items: center; margin-top: 5px; flex-wrap: wrap; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
-      <div class="filter-group" style="flex: 1; min-width: 180px;">
-        <label>Filtrar por Jugador</label>
-        <select id="filtroModalUsuario" class="filter-control" onchange="actualizarTablaDetalleModal()">
-          <option value="TODOS">-- Todos los Jugadores --</option>
-        </select>
-      </div>
-      <div class="filter-group" style="flex: 1; min-width: 150px;">
-        <label>Filtrar por Moneda</label>
-        <select id="filtroModalMoneda" class="filter-control" onchange="actualizarTablaDetalleModal()">
-          <option value="TODAS">-- Todas las Monedas --</option>
-          <option value="USD">USD ($)</option>
-          <option value="USDT">USDT</option>
-          <option value="BSF">BSF (Bs.)</option>
-        </select>
-      </div>
-      <div style="display: flex; align-items: flex-end; height: 100%;">
-        <button class="btn btn-gold" style="padding: 10px 14px; font-size: 0.85rem;" onclick="resetFiltrosModal()"><i class="fa-solid fa-rotate-left"></i> Limpiar</button>
-      </div>
-    </div>
-
-    <h4 style="font-size: 0.95rem; color: var(--accent-gold); margin-top: 5px;"><i class="fa-solid fa-users"></i> Desglose por Cliente</h4>
-    <div style="max-height: 380px; overflow-y: auto;" class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Cliente</th>
-            <th>Moneda</th>
-            <th>Apostado</th>
-            <th>Premios Pagados</th>
-            <th>Saldo (Resultado Casa)</th>
-          </tr>
-        </thead>
-        <tbody id="modalHistorialClientesBody"></tbody>
-      </table>
-    </div>
-    <div style="display: flex; justify-content: flex-end; margin-top: 5px;">
-      <button class="btn btn-gold" onclick="cerrarModalHistorial()">Cerrar Detalle</button>
-    </div>
-  </div>
+<div class="modal-card" style="width: 950px; max-height: 95vh;">
+<h3><i class="fa-solid fa-calendar-day"></i> Detalle de Cierre de Caja</h3>
+<p style="font-size: 0.95rem; color: var(--accent-gold); font-weight: bold;" id="modalHistorialFecha">Fecha: --/--/----</p>
+<div style="font-size: 0.85rem; background: var(--bg-secondary); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);" id="modalHistorialResumenGral"></div>
+<div style="display: flex; gap: 10px; align-items: center; margin-top: 5px; flex-wrap: wrap; background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
+<div class="filter-group" style="flex: 1; min-width: 180px;">
+<label>Filtrar por Jugador</label>
+<select id="filtroModalUsuario" class="filter-control" onchange="actualizarTablaDetalleModal()">
+<option value="TODOS">-- Todos los Jugadores --</option>
+</select>
+</div>
+<div class="filter-group" style="flex: 1; min-width: 150px;">
+<label>Filtrar por Moneda</label>
+<select id="filtroModalMoneda" class="filter-control" onchange="actualizarTablaDetalleModal()">
+<option value="TODAS">-- Todas las Monedas --</option>
+<option value="USD">USD ($)</option>
+<option value="USDT">USDT</option>
+<option value="BSF">BSF (Bs.)</option>
+</select>
+</div>
+<div style="display: flex; align-items: flex-end; height: 100%;">
+<button class="btn btn-gold" style="padding: 10px 14px; font-size: 0.85rem;" onclick="resetFiltrosModal()"><i class="fa-solid fa-rotate-left"></i> Limpiar</button>
+</div>
+</div>
+<h4 style="font-size: 0.95rem; color: var(--accent-gold); margin-top: 5px;"><i class="fa-solid fa-users"></i> Desglose por Cliente</h4>
+<div style="max-height: 380px; overflow-y: auto;" class="table-container">
+<table>
+<thead>
+<tr>
+<th>Cliente</th>
+<th>Moneda</th>
+<th>Apostado</th>
+<th>Premios Pagados</th>
+<th>Saldo (Resultado Casa)</th>
+</tr>
+</thead>
+<tbody id="modalHistorialClientesBody"></tbody>
+</table>
+</div>
+<div style="display: flex; justify-content: flex-end; margin-top: 5px;">
+<button class="btn btn-gold" onclick="cerrarModalHistorial()">Cerrar Detalle</button>
+</div>
+</div>
 </div>
 
 <!-- SIDEBAR -->
 <aside class="sidebar" id="appSidebar" style="display: none;">
-  <div class="brand">
-    <i class="fa-solid fa-trophy"></i> GRUPO SAHER
-  </div>
-  <ul class="nav-links" id="navLinksContainer"></ul>
-  <div style="padding: 20px; border-top: 1px solid var(--border-color);">
-    <button class="btn btn-danger" style="width: 100%; justify-content: center;" onclick="cerrarSesion()"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</button>
-  </div>
+<div class="brand">
+<i class="fa-solid fa-trophy"></i> GRUPO SAHER
+</div>
+<ul class="nav-links" id="navLinksContainer"></ul>
+<div style="padding: 20px; border-top: 1px solid var(--border-color);">
+<button class="btn btn-danger" style="width: 100%; justify-content: center;" onclick="cerrarSesion()"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</button>
+</div>
 </aside>
 
 <!-- MAIN CONTENT -->
 <main class="main-content" id="appMainContent" style="display: none;">
-  <header>
-    <div class="header-title">
-      <h1 id="headerTitleText">Emisión de Tickets y Taquilla</h1>
-    </div>
-    <div class="header-info">
-      <span class="badge-cashier" id="headerUserBadge"><i class="fa-solid fa-user-gear"></i> Rol: Invitado</span>
-      <span style="font-size:0.85rem; color:var(--text-muted);"><i class="fa-regular fa-calendar"></i> 04/08/2026</span>
-    </div>
-  </header>
+<header>
+<div class="header-title">
+<h1 id="headerTitleText">Emisión de Tickets y Taquilla</h1>
+</div>
+<div class="header-info">
+<span class="badge-cashier" id="headerUserBadge"><i class="fa-solid fa-user-gear"></i> Rol: Invitado</span>
+<span style="font-size:0.85rem; color:var(--text-muted);"><i class="fa-regular fa-calendar"></i> <span id="fechaActualSpan"></span></span>
+</div>
+</header>
 
-  <!-- 1. FACTURACIÓN Y TRANSMISIONES -->
-  <section id="view-facturacion" class="view-section active">
-    <h2 style="margin-bottom: 20px; color: var(--text-main); font-size: 1.3rem;">
-      <i class="fa-solid fa-ticket" style="color:var(--accent-gold);"></i> Emisión de Tickets y Taquilla
-    </h2>
-    <div class="form-container">
-      <h3 style="margin-bottom: 15px; font-size: 1rem; color: var(--accent-gold);"><i class="fa-solid fa-pen-to-square"></i> Registrar Nueva Apuesta</h3>
-      <div class="form-grid">
-        <div class="filter-group">
-          <label>Hipódromo</label>
-          <select id="facturaTrackSelect" class="filter-control"></select>
-        </div>
-        <div class="filter-group">
-          <label>Carrera</label>
-          <input type="number" id="facturaCarrera" class="filter-control" placeholder="Ej. 1" min="1" value="1">
-        </div>
-        <div class="filter-group">
-          <label>N° Ejemplar (Caballo)</label>
-          <input type="text" id="facturaEjemplar" class="filter-control" placeholder="Ej. 5">
-        </div>
-        <div class="filter-group">
-          <label>Tipo de Jugada</label>
-          <select id="facturaTipoJugada" class="filter-control">
-            <option value="Ganador">Ganador</option>
-            <option value="Place">Place</option>
-            <option value="Show">Show</option>
-            <option value="Exacta">Exacta</option>
-            <option value="Trifecta">Trifecta</option>
-            <option value="Superfecta">Superfecta</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label>Cliente</label>
-          <select id="facturaUserSelect" class="filter-control"></select>
-        </div>
-        <div class="filter-group">
-          <label>Monto</label>
-          <input type="number" id="facturaMonto" class="filter-control" placeholder="0.00" min="0" step="0.01">
-        </div>
-        <div class="filter-group">
-          <label>Moneda</label>
-          <select id="facturaMoneda" class="filter-control">
-            <option value="USD">USD ($)</option>
-            <option value="USDT">USDT</option>
-            <option value="BSF">BS (Bs.)</option>
-          </select>
-        </div>
-        <div class="filter-group" style="justify-content: flex-end;">
-          <button class="btn btn-gold" style="margin-top: auto;" onclick="generarFactura()"><i class="fa-solid fa-print"></i> Facturar e Imprimir</button>
-        </div>
-      </div>
-    </div>
+<!-- 1. FACTURACIÓN Y TRANSMISIONES -->
+<section id="view-facturacion" class="view-section active">
+<h2 style="margin-bottom: 20px; color: var(--text-main); font-size: 1.3rem;">
+<i class="fa-solid fa-ticket" style="color:var(--accent-gold);"></i> Emisión de Tickets y Taquilla
+</h2>
+<div class="form-container">
+<h3 style="margin-bottom: 15px; font-size: 1rem; color: var(--accent-gold);"><i class="fa-solid fa-pen-to-square"></i> Registrar Nueva Apuesta</h3>
+<div class="form-grid">
+<div class="filter-group">
+<label>Hipódromo</label>
+<select id="facturaTrackSelect" class="filter-control"></select>
+</div>
+<div class="filter-group">
+<label>Carrera</label>
+<input type="number" id="facturaCarrera" class="filter-control" placeholder="Ej. 1" min="1" value="1">
+</div>
+<div class="filter-group">
+<label>N° Ejemplar (Caballo)</label>
+<input type="text" id="facturaEjemplar" class="filter-control" placeholder="Ej. 5">
+</div>
+<div class="filter-group">
+<label>Tipo de Jugada</label>
+<select id="facturaTipoJugada" class="filter-control">
+<option value="Ganador">Ganador</option>
+<option value="Place">Place</option>
+<option value="Show">Show</option>
+<option value="Exacta">Exacta</option>
+<option value="Trifecta">Trifecta</option>
+<option value="Superfecta">Superfecta</option>
+</select>
+</div>
+<div class="filter-group">
+<label>Cliente</label>
+<select id="facturaUserSelect" class="filter-control"></select>
+</div>
+<div class="filter-group">
+<label>Monto</label>
+<input type="number" id="facturaMonto" class="filter-control" placeholder="0.00" min="0" step="0.01">
+</div>
+<div class="filter-group">
+<label>Moneda</label>
+<select id="facturaMoneda" class="filter-control">
+<option value="USD">USD ($)</option>
+<option value="USDT">USDT</option>
+<option value="BSF">BSF (Bs.)</option>
+</select>
+</div>
+<div class="filter-group" style="justify-content: flex-end;">
+<button class="btn btn-gold" style="margin-top: auto;" onclick="generarFactura()"><i class="fa-solid fa-print"></i> Facturar e Imprimir</button>
+</div>
+</div>
+</div>
+<div class="stream-container">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px;">
+<h3 style="font-size: 1.1rem; color: var(--accent-gold);"><i class="fa-solid fa-tv"></i> Transmisión en Vivo de Carreras</h3>
+<div class="filter-group" style="min-width: 250px;">
+<select id="selectStreamActivo" class="filter-control" onchange="cambiarCanalStream()"></select>
+</div>
+</div>
+<p style="font-size: 0.85rem; color: var(--text-muted);">Sintoniza la señal de video configurada por la administración.</p>
+<div class="video-responsive" id="reproductorContainer">
+<iframe id="iframeStream" src="" allowfullscreen></iframe>
+</div>
+</div>
+</section>
 
-    <div class="stream-container">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px;">
-        <h3 style="font-size: 1.1rem; color: var(--accent-gold);"><i class="fa-solid fa-tv"></i> Transmisión en Vivo de Carreras</h3>
-        <div class="filter-group" style="min-width: 250px;">
-          <select id="selectStreamActivo" class="filter-control" onchange="cambiarCanalStream()"></select>
-        </div>
-      </div>
-      <p style="font-size: 0.85rem; color: var(--text-muted);">Sintoniza la señal de video configurada por la administración.</p>
-      <div class="video-responsive" id="reproductorContainer">
-        <iframe id="iframeStream" src="" allowfullscreen></iframe>
-      </div>
-    </div>
-  </section>
+<!-- 2. LISTADO DE TICKETS -->
+<section id="view-tickets" class="view-section">
+<h2 style="margin-bottom: 20px; color: var(--text-main); font-size: 1.3rem;">
+<i class="fa-solid fa-list-check" style="color:var(--accent-gold);"></i> Historial y Gestión de Tickets
+</h2>
+<div class="table-container">
+<div class="table-header-title">
+<span><i class="fa-solid fa-ticket"></i> Listado General de Tickets</span>
+</div>
+<table>
+<thead>
+<tr>
+<th>N° Ticket</th>
+<th>Cajero</th>
+<th>Fecha / Hora</th>
+<th>Cliente</th>
+<th>Hipódromo / Detalle</th>
+<th>Monto</th>
+<th>Moneda</th>
+<th>Estado Actual</th>
+<th>Acciones</th>
+</tr>
+</thead>
+<tbody id="facturaTableBody"></tbody>
+</table>
+</div>
+</section>
 
-  <!-- 2. LISTADO DE TICKETS -->
-  <section id="view-tickets" class="view-section">
-    <h2 style="margin-bottom: 20px; color: var(--text-main); font-size: 1.3rem;">
-      <i class="fa-solid fa-list-check" style="color:var(--accent-gold);"></i> Historial y Gestión de Tickets
-    </h2>
-    <div class="table-container">
-      <div class="table-header-title">
-        <span><i class="fa-solid fa-ticket"></i> Listado General de Tickets</span>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>N° Ticket</th>
-            <th>Cajero</th>
-            <th>Fecha / Hora</th>
-            <th>Cliente</th>
-            <th>Hipódromo / Detalle</th>
-            <th>Monto</th>
-            <th>Moneda</th>
-            <th>Estado Actual</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="facturaTableBody"></tbody>
-      </table>
-    </div>
-  </section>
+<!-- 3. CONTROL DE SALDOS -->
+<section id="view-saldos" class="view-section">
+<h2 style="margin-bottom: 20px; color: var(--text-main); font-size: 1.3rem;">
+<i class="fa-solid fa-wallet" style="color:var(--accent-gold);"></i> Control, Recargas y Retiros de Saldos
+</h2>
+<div class="form-container" style="margin-bottom: 20px;">
+<h3 style="margin-bottom: 15px; font-size: 1rem; color: var(--accent-gold);"><i class="fa-solid fa-right-left"></i> Operación de Saldo Multimoneda</h3>
+<div class="form-grid">
+<div class="filter-group">
+<label>Seleccionar Usuario</label>
+<select id="saldoUserSelect" class="filter-control"></select>
+</div>
+<div class="filter-group">
+<label>Tipo de Transacción</label>
+<select id="saldoTipoSelect" class="filter-control">
+<option value="recarga">Recargar Saldo (+)</option>
+<option value="retiro">Retirar Saldo (-)</option>
+</select>
+</div>
+<div class="filter-group">
+<label>Moneda</label>
+<select id="saldoMonedaSelect" class="filter-control">
+<option value="USD">USD ($)</option>
+<option value="USDT">USDT</option>
+<option value="BSF">BSF (Bs.)</option>
+</select>
+</div>
+<div class="filter-group">
+<label>Monto</label>
+<input type="number" id="saldoMontoInput" class="filter-control" placeholder="0.00" min="0" step="0.01">
+</div>
+<div class="filter-group" style="justify-content: flex-end;">
+<button class="btn btn-gold" style="margin-top: auto;" onclick="procesarSaldo()"><i class="fa-solid fa-check"></i> Procesar</button>
+</div>
+</div>
+</div>
+<div class="table-container">
+<div class="table-header-title">
+<span><i class="fa-solid fa-coins"></i> Saldos Multimoneda Actuales por Usuario</span>
+</div>
+<table>
+<thead>
+<tr>
+<th>Usuario</th>
+<th>Alias</th>
+<th>Saldo USD ($)</th>
+<th>Saldo USDT</th>
+<th>Saldo BSF (Bs.)</th>
+</tr>
+</thead>
+<tbody id="saldosTableBody"></tbody>
+</table>
+</div>
+</section>
 
-  <!-- 3. CONTROL DE SALDOS -->
-  <section id="view-saldos" class="view-section">
-    <h2 style="margin-bottom: 20px; color: var(--text-main); font-size: 1.3rem;">
-      <i class="fa-solid fa-wallet" style="color:var(--accent-gold);"></i> Control, Recargas y Retiros de Saldos
-    </h2>
-    <div class="form-container" style="margin-bottom: 20px;">
-      <h3 style="margin-bottom: 15px; font-size: 1rem; color: var(--accent-gold);"><i class="fa-solid fa-right-left"></i> Operación de Saldo Multimoneda</h3>
-      <div class="form-grid">
-        <div class="filter-group">
-          <label>Seleccionar Usuario</label>
-          <select id="saldoUserSelect" class="filter-control"></select>
-        </div>
-        <div class="filter-group">
-          <label>Tipo de Transacción</label>
-          <select id="saldoTipoSelect" class="filter-control">
-            <option value="recarga">Recargar Saldo (+)</option>
-            <option value="retiro">Retirar Saldo (-)</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label>Moneda</label>
-          <select id="saldoMonedaSelect" class="filter-control">
-            <option value="USD">USD ($)</option>
-            <option value="USDT">USDT</option>
-            <option value="BSF">BSF (Bs.)</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label>Monto</label>
-          <input type="number" id="saldoMontoInput" class="filter-control" placeholder="0.00" min="0" step="0.01">
-        </div>
-        <div class="filter-group" style="justify-content: flex-end;">
-          <button class="btn btn-gold" style="margin-top: auto;" onclick="procesarSaldo()"><i class="fa-solid fa-check"></i> Procesar</button>
-        </div>
-      </div>
-    </div>
-    <div class="table-container">
-      <div class="table-header-title">
-        <span><i class="fa-solid fa-coins"></i> Saldos Multimoneda Actuales por Usuario</span>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Usuario</th>
-            <th>Alias</th>
-            <th>Saldo USD ($)</th>
-            <th>Saldo USDT</th>
-            <th>Saldo BSF (Bs.)</th>
-          </tr>
-        </thead>
-        <tbody id="saldosTableBody"></tbody>
-      </table>
-    </div>
-  </section>
+<!-- 4. CUADRE DE CAJA -->
+<section id="view-cuadre" class="view-section">
+<h2 style="margin-bottom: 20px; color: var(--text-main); font-size: 1.3rem;">
+<i class="fa-solid fa-cash-register" style="color:var(--accent-gold);"></i> Cuadre General y Cierre Archivada por Fecha
+</h2>
+<h3 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 1.1rem;"><i class="fa-solid fa-globe"></i> Balance de Jornada Activa</h3>
+<div class="stats-grid" style="margin-bottom: 30px;">
+<div class="stat-card">
+<span>Neto Recargas/Retiros (USD)</span>
+<h3 id="statNetoUSD" style="color: var(--success);">$0.00</h3>
+</div>
+<div class="stat-card">
+<span>Neto Recargas/Retiros (USDT)</span>
+<h3 id="statNetoUSDT" style="color: var(--success);">0.00</h3>
+</div>
+<div class="stat-card">
+<span>Neto Recargas/Retiros (BSF)</span>
+<h3 id="statNetoBSF" style="color: var(--success);">Bs. 0.00</h3>
+</div>
+<div class="stat-card">
+<span>Tickets Facturados (USD)</span>
+<h3 id="statTicketsUSD" style="color: var(--accent-gold);">$0.00</h3>
+</div>
+<div class="stat-card">
+<span>Tickets Facturados (USDT)</span>
+<h3 id="statTicketsUSDT" style="color: var(--accent-gold);">0.00</h3>
+</div>
+<div class="stat-card">
+<span>Tickets Facturados (BSF)</span>
+<h3 id="statTicketsBSF" style="color: var(--accent-gold);">Bs. 0.00</h3>
+</div>
+</div>
+<h3 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 1.1rem;"><i class="fa-solid fa-user-tie"></i> Rendimiento por Cajero</h3>
+<div class="table-container" style="margin-bottom: 25px;">
+<table>
+<thead>
+<tr>
+<th>Cajero</th>
+<th>Tickets Emitidos</th>
+<th>Total USD ($)</th>
+<th>Total USDT</th>
+<th>Total BSF (Bs.)</th>
+</tr>
+</thead>
+<tbody id="cuadreCajerosTableBody"></tbody>
+</table>
+</div>
+<div class="form-container" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+<div>
+<h3 style="color: var(--accent-gold); margin-bottom: 5px;"><i class="fa-solid fa-lock"></i> Cierre de Jornada y Guardado</h3>
+<p style="font-size: 0.85rem; color: var(--text-muted);">Guarda el estado financiero general e individual para la fecha seleccionada.</p>
+</div>
+<div style="display: flex; gap: 10px; align-items: center;">
+<input type="date" id="cierreFechaInput" class="filter-control">
+<button class="btn btn-gold" onclick="cerrarCaja()"><i class="fa-solid fa-file-shield"></i> Ejecutar y Guardar</button>
+</div>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+<h3 style="color: var(--accent-gold); font-size: 1.1rem;"><i class="fa-solid fa-box-archive"></i> Historial de Cuadres Archivados</h3>
+<div style="display: flex; gap: 10px; align-items: center;">
+<label style="font-size: 0.85rem; color: var(--text-muted);">Buscar por Fecha:</label>
+<input type="date" id="searchFechaCuadre" class="filter-control" onchange="filtrarHistorialCuadres()">
+<button class="btn btn-gold" style="padding: 8px 12px; font-size: 0.8rem;" onclick="limpiarFiltroCuadre()"><i class="fa-solid fa-rotate-left"></i> Ver Todos</button>
+</div>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Fecha Cierre</th>
+<th>Total Ingresos por Moneda</th>
+<th>Total Premios Pagados</th>
+<th>Resultado Neto General</th>
+<th>Acciones</th>
+</tr>
+</thead>
+<tbody id="historialCuadreTableBody"></tbody>
+</table>
+</div>
+</section>
 
-  <!-- 4. CUADRE DE CAJA -->
-  <section id="view-cuadre" class="view-section">
-    <h2 style="margin-bottom: 20px; color: var(--text-main); font-size: 1.3rem;">
-      <i class="fa-solid fa-cash-register" style="color:var(--accent-gold);"></i> Cuadre General y Cierre Archivada por Fecha
-    </h2>
-    <h3 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 1.1rem;"><i class="fa-solid fa-globe"></i> Balance de Jornada Activa</h3>
-    <div class="stats-grid" style="margin-bottom: 30px;">
-      <div class="stat-card">
-        <span>Neto Recargas/Retiros (USD)</span>
-        <h3 id="statNetoUSD" style="color: var(--success);">$0.00</h3>
-      </div>
-      <div class="stat-card">
-        <span>Neto Recargas/Retiros (USDT)</span>
-        <h3 id="statNetoUSDT" style="color: var(--success);">0.00</h3>
-      </div>
-      <div class="stat-card">
-        <span>Neto Recargas/Retiros (BSF)</span>
-        <h3 id="statNetoBSF" style="color: var(--success);">Bs. 0.00</h3>
-      </div>
-      <div class="stat-card">
-        <span>Tickets Facturados (USD)</span>
-        <h3 id="statTicketsUSD" style="color: var(--accent-gold);">$0.00</h3>
-      </div>
-      <div class="stat-card">
-        <span>Tickets Facturados (USDT)</span>
-        <h3 id="statTicketsUSDT" style="color: var(--accent-gold);">0.00</h3>
-      </div>
-      <div class="stat-card">
-        <span>Tickets Facturados (BSF)</span>
-        <h3 id="statTicketsBSF" style="color: var(--accent-gold);">Bs. 0.00</h3>
-      </div>
-    </div>
+<!-- 5. JUGADORES -->
+<section id="view-usuarios" class="view-section">
+<h2 style="margin-bottom: 20px; color: var(--text-main); font-size: 1.3rem;">
+<i class="fa-solid fa-users-gear" style="color:var(--accent-gold);"></i> Administración de Clientes / Jugadores
+</h2>
+<div class="form-container">
+<h3 style="margin-bottom: 15px; font-size: 1rem; color: var(--accent-gold);"><i class="fa-solid fa-user-plus"></i> Añadir Nuevo Jugador</h3>
+<div class="form-grid">
+<div class="filter-group">
+<label>Nombre y Apellido</label>
+<input type="text" id="nuevoNombre" class="filter-control" placeholder="Ej. Pedro Pérez">
+</div>
+<div class="filter-group">
+<label>Alias / Usuario</label>
+<input type="text" id="nuevoAlias" class="filter-control" placeholder="Ej. pperez">
+</div>
+<div class="filter-group" style="justify-content: flex-end;">
+<button class="btn btn-gold" style="margin-top: auto;" onclick="registrarUsuario()"><i class="fa-solid fa-user-check"></i> Registrar Jugador</button>
+</div>
+</div>
+</div>
+<div class="table-container">
+<div class="table-header-title">
+<span><i class="fa-solid fa-address-book"></i> Listado de Jugadores Activos</span>
+</div>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Nombre Completo</th>
+<th>Alias</th>
+<th>Acciones</th>
+</tr>
+</thead>
+<tbody id="usuariosTableBody"></tbody>
+</table>
+</div>
+</section>
 
-    <h3 style="color: var(--accent-gold); margin-bottom: 15px; font-size: 1.1rem;"><i class="fa-solid fa-user-tie"></i> Rendimiento por Cajero</h3>
-    <div class="table-container" style="margin-bottom: 25px;">
-      <table>
-        <thead>
-          <tr>
-            <th>Cajero</th>
-            <th>Tickets Emitidos</th>
-            <th>Total USD ($)</th>
-            <th>Total USDT</th>
-            <th>Total BSF (Bs.)</th>
-          </tr>
-        </thead>
-        <tbody id="cuadreCajerosTableBody"></tbody>
-      </table>
-    </div>
+<!-- 6. CAJEROS -->
+<section id="view-cajeros" class="view-section">
+<h2 style="margin-bottom: 20px; color: var(--text-main); font-size: 1.3rem;">
+<i class="fa-solid fa-user-shield" style="color:var(--accent-gold);"></i> Gestión de Cajeros del Sistema
+</h2>
+<div class="form-container">
+<h3 style="margin-bottom: 15px; font-size: 1rem; color: var(--accent-gold);"><i class="fa-solid fa-user-plus"></i> Crear Nuevo Cajero</h3>
+<div class="form-grid">
+<div class="filter-group">
+<label>Nombre del Cajero</label>
+<input type="text" id="cajeroNombre" class="filter-control" placeholder="Ej. Juan Gómez">
+</div>
+<div class="filter-group">
+<label>Usuario de Acceso</label>
+<input type="text" id="cajeroUser" class="filter-control" placeholder="Ej. jgomez">
+</div>
+<div class="filter-group">
+<label>Contraseña</label>
+<input type="password" id="cajeroPass" class="filter-control" placeholder="Contraseña">
+</div>
+<div class="filter-group" style="justify-content: flex-end;">
+<button class="btn btn-gold" style="margin-top: auto;" onclick="registrarCajero()"><i class="fa-solid fa-id-card"></i> Registrar Cajero</button>
+</div>
+</div>
+</div>
+<div class="table-container">
+<div class="table-header-title">
+<span><i class="fa-solid fa-users"></i> Cajeros Autorizados</span>
+</div>
+<table>
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Usuario</th>
+<th>Acciones</th>
+</tr>
+</thead>
+<tbody id="cajerosTableBody"></tbody>
+</table>
+</div>
+</section>
 
-    <div class="form-container" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
-      <div>
-        <h3 style="color: var(--accent-gold); margin-bottom: 5px;"><i class="fa-solid fa-lock"></i> Cierre de Jornada y Guardado</h3>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">Guarda el estado financiero general e individual para la fecha seleccionada.</p>
-      </div>
-      <div style="display: flex; gap: 10px; align-items: center;">
-        <input type="date" id="cierreFechaInput" class="filter-control" value="2026-08-04">
-        <button class="btn btn-gold" onclick="cerrarCaja()"><i class="fa-solid fa-file-shield"></i> Ejecutar y Guardar</button>
-      </div>
-    </div>
-
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
-      <h3 style="color: var(--accent-gold); font-size: 1.1rem;"><i class="fa-solid fa-box-archive"></i> Historial de Cuadres Archivados</h3>
-      <div style="display: flex; gap: 10px; align-items: center;">
-        <label style="font-size: 0.85rem; color: var(--text-muted);">Buscar por Fecha:</label>
-        <input type="date" id="searchFechaCuadre" class="filter-control" onchange="filtrarHistorialCuadres()">
-        <button class="btn btn-gold" style="padding: 8px 12px; font-size: 0.8rem;" onclick="limpiarFiltroCuadre()"><i class="fa-solid fa-rotate-left"></i> Ver Todos</button>
-      </div>
-    </div>
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Fecha Cierre</th>
-            <th>Total Ingresos por Moneda</th>
-            <th>Total Premios Pagados</th>
-            <th>Resultado Neto General</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="historialCuadreTableBody"></tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- 5. JUGADORES -->
-  <section id="view-usuarios" class="view-section">
-    <h2 style="margin-bottom: 20px; color: var(--text-main); font-size: 1.3rem;">
-      <i class="fa-solid fa-users-gear" style="color:var(--accent-gold);"></i> Administración de Clientes / Jugadores
-    </h2>
-    <div class="form-container">
-      <h3 style="margin-bottom: 15px; font-size: 1rem; color: var(--accent-gold);"><i class="fa-solid fa-user-plus"></i> Añadir Nuevo Jugador</h3>
-      <div class="form-grid">
-        <div class="filter-group">
-          <label>Nombre y Apellido</label>
-          <input type="text" id="nuevoNombre" class="filter-control" placeholder="Ej. Pedro Pérez">
-        </div>
-        <div class="filter-group">
-          <label>Alias / Usuario</label>
-          <input type="text" id="nuevoAlias" class="filter-control" placeholder="Ej. pperez">
-        </div>
-        <div class="filter-group" style="justify-content: flex-end;">
-          <button class="btn btn-gold" style="margin-top: auto;" onclick="registrarUsuario()"><i class="fa-solid fa-user-check"></i> Registrar Jugador</button>
-        </div>
-      </div>
-    </div>
-    <div class="table-container">
-      <div class="table-header-title">
-        <span><i class="fa-solid fa-address-book"></i> Listado de Jugadores Activos</span>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre Completo</th>
-            <th>Alias</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="usuariosTableBody"></tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- 6. CAJEROS -->
-  <section id="view-cajeros" class="view-section">
-    <h2 style="margin-bottom: 20px; color: var(--text-main); font-size: 1.3rem;">
-      <i class="fa-solid fa-user-shield" style="color:var(--accent-gold);"></i> Gestión de Cajeros del Sistema
-    </h2>
-    <div class="form-container">
-      <h3 style="margin-bottom: 15px; font-size: 1rem; color: var(--accent-gold);"><i class="fa-solid fa-user-plus"></i> Crear Nuevo Cajero</h3>
-      <div class="form-grid">
-        <div class="filter-group">
-          <label>Nombre del Cajero</label>
-          <input type="text" id="cajeroNombre" class="filter-control" placeholder="Ej. Juan Gómez">
-        </div>
-        <div class="filter-group">
-          <label>Usuario de Acceso</label>
-          <input type="text" id="cajeroUser" class="filter-control" placeholder="Ej. jgomez">
-        </div>
-        <div class="filter-group">
-          <label>Contraseña</label>
-          <input type="password" id="cajeroPass" class="filter-control" placeholder="Contraseña">
-        </div>
-        <div class="filter-group" style="justify-content: flex-end;">
-          <button class="btn btn-gold" style="margin-top: auto;" onclick="registrarCajero()"><i class="fa-solid fa-id-card"></i> Registrar Cajero</button>
-        </div>
-      </div>
-    </div>
-    <div class="table-container">
-      <div class="table-header-title">
-        <span><i class="fa-solid fa-users"></i> Cajeros Autorizados</span>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Usuario</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody id="cajerosTableBody"></tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- 7. CONFIGURACIÓN Y TRANSMISIONES -->
-  <section id="view-config" class="view-section">
-    <h2 style="margin-bottom: 20px; color: var(--text-main); font-size: 1.3rem;">
-      <i class="fa-solid fa-sliders" style="color:var(--accent-gold);"></i> Configuración del Sistema y Transmisiones
-    </h2>
-    <div class="form-container" style="margin-bottom: 25px;">
-      <h3 style="margin-bottom: 15px; font-size: 1rem; color: var(--accent-gold);"><i class="fa-solid fa-tv"></i> Gestión de Transmisiones en Vivo (Links)</h3>
-      <div class="form-grid">
-        <div class="filter-group">
-          <label>Nombre del Canal / Hipódromo</label>
-          <input type="text" id="streamTitulo" class="filter-control" placeholder="Ej. Gulfstream Park HD">
-        </div>
-        <div class="filter-group">
-          <label>URL de Transmisión (Embed/YouTube)</label>
-          <input type="text" id="streamUrl" class="filter-control" placeholder="Ej. https://www.youtube.com/embed/VIDEO_ID">
-        </div>
-        <div class="filter-group" style="justify-content: flex-end;">
-          <button class="btn btn-gold" style="margin-top: auto;" onclick="agregarStream()"><i class="fa-solid fa-plus"></i> Añadir Transmisión</button>
-        </div>
-      </div>
-      <div class="table-container" style="margin-top: 20px;">
-        <table>
-          <thead>
-            <tr>
-              <th>Título / Hipódromo</th>
-              <th>Enlace (URL)</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody id="streamsTableBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="form-container">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <h3 style="font-size: 1rem; color: var(--accent-gold);"><i class="fa-solid fa-horse-head"></i> Marcar / Desmarcar Venta Diaria</h3>
-        <div>
-          <button class="btn btn-gold" style="padding: 6px 12px; font-size: 0.8rem;" onclick="toggleAll(true)">Marcar Todos</button>
-          <button class="btn btn-danger" style="padding: 6px 12px; font-size: 0.8rem;" onclick="toggleAll(false)">Desmarcar Todos</button>
-        </div>
-      </div>
-      <div class="tracks-grid" id="tracksGridContainer"></div>
-      <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
-        <button class="btn btn-gold" onclick="guardarParrilla()"><i class="fa-solid fa-floppy-disk"></i> Guardar Parrilla</button>
-      </div>
-    </div>
-  </section>
+<!-- 7. CONFIGURACIÓN Y TRANSMISIONES -->
+<section id="view-config" class="view-section">
+<h2 style="margin-bottom: 20px; color: var(--text-main); font-size: 1.3rem;">
+<i class="fa-solid fa-sliders" style="color:var(--accent-gold);"></i> Configuración del Sistema y Transmisiones
+</h2>
+<div class="form-container" style="margin-bottom: 25px;">
+<h3 style="margin-bottom: 15px; font-size: 1rem; color: var(--accent-gold);"><i class="fa-solid fa-tv"></i> Gestión de Transmisiones en Vivo (Links)</h3>
+<div class="form-grid">
+<div class="filter-group">
+<label>Nombre del Canal / Hipódromo</label>
+<input type="text" id="streamTitulo" class="filter-control" placeholder="Ej. Gulfstream Park HD">
+</div>
+<div class="filter-group">
+<label>URL de Transmisión (Embed/YouTube)</label>
+<input type="text" id="streamUrl" class="filter-control" placeholder="Ej. https://www.youtube.com/embed/VIDEO_ID">
+</div>
+<div class="filter-group" style="justify-content: flex-end;">
+<button class="btn btn-gold" style="margin-top: auto;" onclick="agregarStream()"><i class="fa-solid fa-plus"></i> Añadir Transmisión</button>
+</div>
+</div>
+<div class="table-container" style="margin-top: 20px;">
+<table>
+<thead>
+<tr>
+<th>Título / Hipódromo</th>
+<th>Enlace (URL)</th>
+<th>Acciones</th>
+</tr>
+</thead>
+<tbody id="streamsTableBody"></tbody>
+</table>
+</div>
+</div>
+<div class="form-container">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+<h3 style="font-size: 1rem; color: var(--accent-gold);"><i class="fa-solid fa-horse-head"></i> Marcar / Desmarcar Venta Diaria</h3>
+<div>
+<button class="btn btn-gold" style="padding: 6px 12px; font-size: 0.8rem;" onclick="toggleAll(true)">Marcar Todos</button>
+<button class="btn btn-danger" style="padding: 6px 12px; font-size: 0.8rem;" onclick="toggleAll(false)">Desmarcar Todos</button>
+</div>
+</div>
+<div class="tracks-grid" id="tracksGridContainer"></div>
+<div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+<button class="btn btn-gold" onclick="guardarParrilla()"><i class="fa-solid fa-floppy-disk"></i> Guardar Parrilla</button>
+</div>
+</div>
+</section>
 </main>
 
 <script>
-// BASE DE DATOS LOCAL
+const firebaseConfig = {
+    apiKey: "AIzaSyAAB3hP9mkf471SaGdxrvlWKO5TYaYf46M",
+    authDomain: "grupoca-10621.firebaseapp.com",
+    projectId: "grupoca-10621",
+    storageBucket: "grupoca-10621.firebasestorage.app",
+    messagingSenderId: "274483838227",
+    appId: "1:274483838227:web:692ae7d453fd5da6df6ee6"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const fechaHoyStr = new Date().toISOString().split('T')[0];
+document.getElementById('fechaActualSpan').innerText = new Date().toLocaleDateString();
+document.getElementById('cierreFechaInput').value = fechaHoyStr;
+
 let cajerosDB = [
-  { nombre: "Cajero Principal", usuario: "cajero1", clave: "1234" }
+    { id: "cajero_def_1", nombre: "Cajero Principal", usuario: "cajero1", clave: "1234" }
 ];
+let usuariosDB = [
+    { id: "#U-001", nombre: "Carlos Mendoza", alias: "cmendoza", saldos: { USD: 450.00, USDT: 100.00, BSF: 5000.00 } },
+    { id: "#U-002", nombre: "Alejandro Rivas", alias: "arivas", saldos: { USD: 1200.00, USDT: 500.00, BSF: 0.00 } },
+    { id: "#U-003", nombre: "María Gutiérrez", alias: "mgutierrez", saldos: { USD: 300.00, USDT: 50.00, BSF: 1200.00 } }
+];
+let facturasDB = [];
+let historialCuadresDB = [];
+let streamsDB = [
+    { id: "stream_1", titulo: "Gulfstream Park - Señal Principal", url: "https://www.youtube.com/embed/jfKfPfyJRdk" },
+    { id: "stream_2", titulo: "Saratoga Live Stream", url: "https://www.youtube.com/embed/5qap5a04i9A" }
+];
+let hipodromosActivos = ['Gulfstream Park', 'Saratoga', 'Santa Anita', 'Woodbine', 'Churchill Downs'];
+
+const tracksList = [
+    "Woodbine", "Fort Erie", "Century Mile", "Century Downs", "Hastings",
+    "Assiniboia", "Saratoga", "Belmont", "Aqueduct", "Churchill Downs",
+    "Keeneland", "Kentucky Downs", "Santa Anita", "Del Mar", "Gulfstream Park",
+    "Tampa Bay Downs", "Pimlico", "Laurel Park", "Monmouth", "Meadowlands",
+    "Oaklawn", "Parx", "Fair Grounds", "Delta Downs", "Lone Star",
+    "Hawthorne", "Emerald Downs", "Golden Gate"
+];
+
 let usuarioActual = null;
 let ticketSeleccionadoIndex = null;
 let modalHistorialIndexActual = null;
 
-let usuariosDB = [
-  { id: "#U-001", nombre: "Carlos Mendoza", alias: "cmendoza", saldos: { USD: 450.00, USDT: 100.00, BSF: 5000.00 } },
-  { id: "#U-002", nombre: "Alejandro Rivas", alias: "arivas", saldos: { USD: 1200.00, USDT: 500.00, BSF: 0.00 } },
-  { id: "#U-003", nombre: "María Gutiérrez", alias: "mgutierrez", saldos: { USD: 300.00, USDT: 50.00, BSF: 1200.00 } }
-];
-
-let facturasDB = [
-  { id: "#TK-8901", cajero: "Cajero Principal", fecha: "04/08/2026 18:20", cliente: "Carlos Mendoza", hipodromo: "Gulfstream Park (C4 - #3)", monto: 150.00, moneda: "USD", estado: "En Curso" },
-  { id: "#TK-8900", cajero: "Cajero Principal", fecha: "04/08/2026 17:45", cliente: "Alejandro Rivas", hipodromo: "Saratoga (C2-#7)", monto: 300.00, moneda: "USDT", estado: "Ganado / Pagado", premioPagado: 600.00 }
-];
-// --- SISTEMA MAESTRO DE SINCRONIZACIÓN CON LA NUBE ---
-function sincronizarConNube(nombreColeccion, objetoDatos) {
-    db.collection(nombreColeccion).add({
-        ...objetoDatos,
-        ultimaActualizacion: firebase.firestore.FieldValue.serverTimestamp()
-    })
-    .then(() => {
-        console.log(`[Cloud] ${nombreColeccion} sincronizado correctamente.`);
-    })
-    .catch((error) => {
-        console.error(`[Error Cloud] No se pudo guardar en ${nombreColeccion}: `, error);
-    });
-}
-let finanzas = {
-  recargas: { USD: 1500.00, USDT: 600.00, BSF: 6200.00 },
-  retiros: { USD: 0.00, USDT: 0.00, BSF: 0.00 },
-  tickets: { USD: 150.00, USDT: 300.00, BSF: 0.00 }
-};
-
-let historialCuadresDB = [
-  {
-    fecha: "2026-08-03",
-    general: {
-      USD: { ingresos: 1250.00, egresos: 600.00, neto: 650.00 },
-      USDT: { ingresos: 300.00, egresos: 100.00, neto: 200.00 },
-      BSF: { ingresos: 5000.00, egresos: 0.00, neto: 5000.00 }
-    },
-    clientes: [
-      { cliente: "Carlos Mendoza", moneda: "USD", apostado: 150.00, ganado: 400.00, saldo: -250.00, estadoSaldo: "La casa ganó" },
-      { cliente: "Carlos Mendoza", moneda: "BSF", apostado: 5000.00, ganado: 0.00, saldo: 5000.00, estadoSaldo: "La casa ganó" },
-      { cliente: "Alejandro Rivas", moneda: "USD", apostado: 1100.00, ganado: 200.00, saldo: 900.00, estadoSaldo: "La casa ganó" },
-      { cliente: "Alejandro Rivas", moneda: "USDT", apostado: 300.00, ganado: 100.00, saldo: 200.00, estadoSaldo: "La casa ganó" }
-    ]
-  }
-];
-
-let streamsDB = [
-  { titulo: "Gulfstream Park - Señal Principal", url: "https://www.youtube.com/embed/jfKfPfyJRdk" },
-  { titulo: "Saratoga Live Stream", url: "https://www.youtube.com/embed/5qap5a04i9A" }
-];
-
-const tracksList = [
-  "Woodbine", "Fort Erie", "Century Mile", "Century Downs", "Hastings",
-  "Assiniboia", "Saratoga", "Belmont", "Aqueduct", "Churchill Downs",
-  "Keeneland", "Kentucky Downs", "Santa Anita", "Del Mar", "Gulfstream Park",
-  "Tampa Bay Downs", "Pimlico", "Laurel Park", "Monmouth", "Meadowlands",
-  "Oaklawn", "Parx", "Fair Grounds", "Delta Downs", "Lone Star",
-  "Hawthorne", "Emerald Downs", "Golden Gate"
-];
-
-let hipodromosActivos = ['Gulfstream Park', 'Saratoga', 'Santa Anita', 'Woodbine', 'Churchill Downs'];
-
-// LÓGICA DE INICIO DE SESIÓN
-function iniciarSesion(event) {
-  if(event) event.preventDefault();
-  const user = document.getElementById('loginUser').value.trim().toLowerCase();
-  const pass = document.getElementById('loginPass').value.trim();
-  
-  if (!user || !pass) {
-    alert("Por favor rellene todos los campos.");
-    return;
-  }
-  
-  if (user === 'admin' && pass === 'admin123') {
-    usuarioActual = { rol: 'admin', nombre: 'Administrador General' };
-  } else {
-    let cajeroEncontrado = cajerosDB.find(c => c.usuario.toLowerCase() === user && c.clave === pass);
-    if (cajeroEncontrado) {
-      usuarioActual = { rol: 'cajero', nombre: cajeroEncontrado.nombre };
-    } else {
-      alert("Usuario o contraseña incorrectos.");
-      return;
+async function guardarEnNube(coleccion, idDoc, datos) {
+    try {
+        await db.collection(coleccion).doc(idDoc).set(datos);
+    } catch (error) {
+        console.error(`Error guardando en ${coleccion}:`, error);
     }
-  }
+}
 
-  document.getElementById('loginOverlay').style.display = 'none';
-  document.getElementById('appSidebar').style.display = 'flex';
-  document.getElementById('appMainContent').style.display = 'flex';
-  construirMenu();
-  renderApp();
-  switchTab('facturacion');
+async function eliminarDeNube(coleccion, idDoc) {
+    try {
+        await db.collection(coleccion).doc(idDoc).delete();
+    } catch (error) {
+        console.error(`Error eliminando de ${coleccion}:`, error);
+    }
+}
+
+async function cargarDatosDeLaNube() {
+    try {
+        const snapClientes = await db.collection("clientes").get();
+        if (!snapClientes.empty) {
+            let tempCli = [];
+            snapClientes.forEach(doc => tempCli.push(doc.data()));
+            usuariosDB = tempCli;
+        } else {
+            for (let u of usuariosDB) {
+                await guardarEnNube("clientes", u.id, u);
+            }
+        }
+
+        const snapCajeros = await db.collection("cajeros").get();
+        if (!snapCajeros.empty) {
+            let tempCaj = [];
+            snapCajeros.forEach(doc => tempCaj.push(doc.data()));
+            cajerosDB = tempCaj;
+        } else {
+            for (let c of cajerosDB) {
+                await guardarEnNube("cajeros", c.usuario, c);
+            }
+        }
+
+        const snapFacturas = await db.collection("facturas").orderBy("fechaCreacion", "desc").get();
+        if (!snapFacturas.empty) {
+            let tempFac = [];
+            snapFacturas.forEach(doc => tempFac.push(doc.data()));
+            facturasDB = tempFac;
+        }
+
+        const snapCuadres = await db.collection("cuadres").get();
+        if (!snapCuadres.empty) {
+            let tempCua = [];
+            snapCuadres.forEach(doc => tempCua.push(doc.data()));
+            historialCuadresDB = tempCua;
+        }
+
+        const snapStreams = await db.collection("streams").get();
+        if (!snapStreams.empty) {
+            let tempStr = [];
+            snapStreams.forEach(doc => tempStr.push(doc.data()));
+            streamsDB = tempStr;
+        } else {
+            for (let s of streamsDB) {
+                await guardarEnNube("streams", s.id, s);
+            }
+        }
+
+        const snapConfig = await db.collection("config").doc("parrilla").get();
+        if (snapConfig.exists && snapConfig.data().hipodromosActivos) {
+            hipodromosActivos = snapConfig.data().hipodromosActivos;
+        } else {
+            await guardarEnNube("config", "parrilla", { hipodromosActivos });
+        }
+
+    } catch (e) {
+        console.error("Error sincronizando con Firestore:", e);
+    }
+    
+    renderAppCompleta();
+}
+
+function iniciarSesion(event) {
+    if(event) event.preventDefault();
+    const user = document.getElementById('loginUser').value.trim().toLowerCase();
+    const pass = document.getElementById('loginPass').value.trim();
+    if (!user || !pass) {
+        alert("Por favor rellene todos los campos.");
+        return;
+    }
+    if (user === 'admin' && pass === 'admin123') {
+        usuarioActual = { rol: 'admin', nombre: 'Administrador General' };
+    } else {
+        let cajeroEncontrado = cajerosDB.find(c => c.usuario.toLowerCase() === user && c.clave === pass);
+        if (cajeroEncontrado) {
+            usuarioActual = { rol: 'cajero', nombre: cajeroEncontrado.nombre };
+        } else {
+            alert("Usuario o contraseña incorrectos.");
+            return;
+        }
+    }
+    document.getElementById('loginOverlay').style.display = 'none';
+    document.getElementById('appSidebar').style.display = 'flex';
+    document.getElementById('appMainContent').style.display = 'flex';
+    construirMenu();
+    cargarDatosDeLaNube();
+    switchTab('facturacion');
 }
 
 function cerrarSesion() {
-  usuarioActual = null;
-  document.getElementById('loginUser').value = '';
-  document.getElementById('loginPass').value = '';
-  document.getElementById('loginOverlay').style.display = 'flex';
-  document.getElementById('appSidebar').style.display = 'none';
-  document.getElementById('appMainContent').style.display = 'none';
+    usuarioActual = null;
+    document.getElementById('loginUser').value = '';
+    document.getElementById('loginPass').value = '';
+    document.getElementById('loginOverlay').style.display = 'flex';
+    document.getElementById('appSidebar').style.display = 'none';
+    document.getElementById('appMainContent').style.display = 'none';
 }
 
-// MENU ACCESIBLE
 function construirMenu() {
-  const nav = document.getElementById('navLinksContainer');
-  let html = `
-    <li><a href="#" id="nav-facturacion" class="active" onclick="switchTab('facturacion'); checkMobileMenu();"><i class="fa-solid fa-file-invoice"></i> Facturación</a></li>
-    <li><a href="#" id="nav-tickets" onclick="switchTab('tickets'); checkMobileMenu();"><i class="fa-solid fa-list-check"></i> Listado de Tickets</a></li>
-    <li><a href="#" id="nav-saldos" onclick="switchTab('saldos'); checkMobileMenu();"><i class="fa-solid fa-wallet"></i> Control de Saldos</a></li>
-    <li><a href="#" id="nav-cuadre" onclick="switchTab('cuadre'); checkMobileMenu();"><i class="fa-solid fa-cash-register"></i> Cuadre de Caja</a></li>
-  `;
-  
-  if (usuarioActual && usuarioActual.rol === 'admin') {
-    html += `
-      <li><a href="#" id="nav-usuarios" onclick="switchTab('usuarios'); checkMobileMenu();"><i class="fa-solid fa-users-gear"></i> Gestión de Jugadores</a></li>
-      <li><a href="#" id="nav-cajeros" onclick="switchTab('cajeros'); checkMobileMenu();"><i class="fa-solid fa-user-shield"></i> Gestión de Cajeros</a></li>
-      <li><a href="#" id="nav-config" onclick="switchTab('configuracion'); checkMobileMenu();"><i class="fa-solid fa-sliders"></i> Configuración</a></li>
+    const nav = document.getElementById('navLinksContainer');
+    let html = `
+        <li><a href="#" id="nav-facturacion" class="active" onclick="switchTab('facturacion'); checkMobileMenu();"><i class="fa-solid fa-file-invoice"></i> Facturación</a></li>
+        <li><a href="#" id="nav-tickets" onclick="switchTab('tickets'); checkMobileMenu();"><i class="fa-solid fa-list-check"></i> Listado de Tickets</a></li>
+        <li><a href="#" id="nav-saldos" onclick="switchTab('saldos'); checkMobileMenu();"><i class="fa-solid fa-wallet"></i> Control de Saldos</a></li>
+        <li><a href="#" id="nav-cuadre" onclick="switchTab('cuadre'); checkMobileMenu();"><i class="fa-solid fa-cash-register"></i> Cuadre de Caja</a></li>
     `;
-  }
-  nav.innerHTML = html;
+    if (usuarioActual && usuarioActual.rol === 'admin') {
+        html += `
+            <li><a href="#" id="nav-usuarios" onclick="switchTab('usuarios'); checkMobileMenu();"><i class="fa-solid fa-users-gear"></i> Gestión de Jugadores</a></li>
+            <li><a href="#" id="nav-cajeros" onclick="switchTab('cajeros'); checkMobileMenu();"><i class="fa-solid fa-user-shield"></i> Gestión de Cajeros</a></li>
+            <li><a href="#" id="nav-config" onclick="switchTab('configuracion'); checkMobileMenu();"><i class="fa-solid fa-sliders"></i> Configuración</a></li>
+        `;
+    }
+    nav.innerHTML = html;
 }
 
 function checkMobileMenu() {
-  if (window.innerWidth <= 768) {
-    document.getElementById('appSidebar').style.display = 'none';
-  }
+    if (window.innerWidth <= 768) {
+        document.getElementById('appSidebar').style.display = 'none';
+    }
 }
 
-function renderApp() {
- cargarDatosDeLaNube();
-    document.getElementById('headerUserBadge').innerHTML = `<i class="fa-solid fa-user-gear"></i> ${usuarioActual && usuarioActual.nombre ? usuarioActual.nombre : ''}`;
+function renderAppCompleta() {
+    document.getElementById('headerUserBadge').innerHTML = `<i class="fa-solid fa-user-gear"></i> ${usuarioActual && usuarioActual.nombre ? usuarioActual.nombre : "Invitado"}`;
     renderTracks();
     renderUsuarios();
     renderCajeros();
@@ -1043,744 +1027,739 @@ function renderApp() {
     renderFacturaTrackSelect();
     renderStreams();
 }
-  async function cargarDatosDeLaNube() {
-    if (typeof db === 'undefined') return;
-    
-    const colecciones = ["facturas", "clientes", "cajeros", "cuadres"];
-    
-    for (let col of colecciones) {
-        try {
-            const snapshot = await db.collection(col).get();
-            if (!snapshot.empty) {
-                let datosNube = [];
-                snapshot.forEach(doc => {
-                    datosNube.push(doc.data());
-                });
-                
-                if (col === "facturas" && typeof facturasDB !== 'undefined') {
-                    facturasDB = datosNube;
-                } else if (col === "clientes" && typeof clientesDB !== 'undefined') {
-                    clientesDB = datosNube;
-                } else if (col === "cajeros" && typeof cajerosDB !== 'undefined') {
-                    cajerosDB = datosNube;
-                } else if (col === "cuadres" && typeof cuadresDB !== 'undefined') {
-                    cuadresDB = datosNube;
-                }
-            }
-        } catch (e) {
-            console.log("Error cargando " + col + ":", e);
-        }
-    }
-    
-    if (typeof renderTracks === 'function') renderTracks();
-    if (typeof renderUsuarios === 'function') renderUsuarios();
-    if (typeof renderCajeros === 'function') renderCajeros();
-    if (typeof renderFacturacion === 'function') renderFacturacion();
-    if (typeof renderCuadre === 'function') renderCuadre();
-    
-    console.log("¡Datos sincronizados desde la nube correctamente!");
-}
 
 function renderTracks() {
-  const container = document.getElementById('tracksGridContainer');
-  if(!container) return;
-  let html = "";
-  tracksList.forEach((track) => {
-    let isChecked = hipodromosActivos.includes(track) ? 'checked' : '';
-    html += `
-      <label class="track-checkbox-card">
-        <span>${track}</span>
-        <input type="checkbox" ${isChecked} value="${track}">
-      </label>
-    `;
-  });
-  container.innerHTML = html;
+    const container = document.getElementById('tracksGridContainer');
+    if(!container) return;
+    let html = "";
+    tracksList.forEach((track) => {
+        let isChecked = hipodromosActivos.includes(track) ? 'checked' : '';
+        html += `
+            <label class="track-checkbox-card">
+                <span>${track}</span>
+                <input type="checkbox" ${isChecked} value="${track}">
+            </label>
+        `;
+    });
+    container.innerHTML = html;
 }
 
 function renderFacturaTrackSelect() {
-  const select = document.getElementById('facturaTrackSelect');
-  if(!select) return;
-  let html = "";
-  if (hipodromosActivos.length === 0) {
-    html = `<option value="">-- No hay hipódromos activos --</option>`;
-  } else {
-    hipodromosActivos.forEach(track => {
-      html += `<option value="${track}">${track}</option>`;
-    });
-  }
-  select.innerHTML = html;
-}
-
-function guardarParrilla() {
-  const checkboxes = document.querySelectorAll('#tracksGridContainer input[type="checkbox"]');
-  let seleccionados = [];
-  checkboxes.forEach(cb => {
-    if(cb.checked) {
-      seleccionados.push(cb.value);
+    const select = document.getElementById('facturaTrackSelect');
+    if(!select) return;
+    let html = "";
+    if (hipodromosActivos.length === 0) {
+        html = '<option value="">-- No hay hipódromos activos --</option>';
+    } else {
+        hipodromosActivos.forEach(track => {
+            html += `<option value="${track}">${track}</option>`;
+        });
     }
-  });
-  hipodromosActivos = seleccionados;
-  renderFacturaTrackSelect();
-  alert("¡Parrilla guardada con éxito!");
+    select.innerHTML = html;
 }
 
-// GESTIÓN DE TRANSMISIONES
-function agregarStream() {
-  const titulo = document.getElementById('streamTitulo').value.trim();
-  const url = document.getElementById('streamUrl').value.trim();
-  if(!titulo || !url) {
-    alert("Por favor complete el título y la URL del stream.");
-    return;
-  }
-  streamsDB.push({ titulo, url });
-  document.getElementById('streamTitulo').value = '';
-  document.getElementById('streamUrl').value = '';
-  renderStreams();
-  alert("¡Transmisión añadida con éxito!");
+async function guardarParrilla() {
+    const checkboxes = document.querySelectorAll('#tracksGridContainer input[type="checkbox"]');
+    let seleccionados = [];
+    checkboxes.forEach(cb => {
+        if(cb.checked) {
+            seleccionados.push(cb.value);
+        }
+    });
+    hipodromosActivos = seleccionados;
+    await guardarEnNube("config", "parrilla", { hipodromosActivos });
+    renderFacturaTrackSelect();
+    alert("¡Parrilla guardada con éxito en la nube!");
 }
 
-function eliminarStream(index) {
-  if(confirm(`¿Está seguro de eliminar la transmisión ${streamsDB[index].titulo}?`)) {
-    streamsDB.splice(index, 1);
+async function agregarStream() {
+    const titulo = document.getElementById('streamTitulo').value.trim();
+    const url = document.getElementById('streamUrl').value.trim();
+    if(!titulo || !url) {
+        alert("Por favor complete el título y la URL del stream.");
+        return;
+    }
+    const idStream = "stream_" + Date.now();
+    const nuevoS = { id: idStream, titulo, url };
+    streamsDB.push(nuevoS);
+    await guardarEnNube("streams", idStream, nuevoS);
+    
+    document.getElementById('streamTitulo').value = '';
+    document.getElementById('streamUrl').value = '';
     renderStreams();
-    alert("Transmisión eliminada.");
-  }
+    alert("¡Transmisión añadida y guardada con éxito!");
+}
+
+async function eliminarStream(index) {
+    if(confirm(`¿Está seguro de eliminar la transmisión ${streamsDB[index].titulo}?`)) {
+        let streamEliminado = streamsDB[index];
+        streamsDB.splice(index, 1);
+        if(streamEliminado.id) {
+            await eliminarDeNube("streams", streamEliminado.id);
+        }
+        renderStreams();
+        alert("Transmisión eliminada.");
+    }
 }
 
 function renderStreams() {
-  const tbody = document.getElementById('streamsTableBody');
-  if(tbody) {
-    let html = "";
-    if(streamsDB.length === 0) {
-      html = `<tr><td colspan="3" style="text-align:center; color:var(--text-muted); padding: 15px;">No hay transmisiones configuradas.</td></tr>`;
-    } else {
-      streamsDB.forEach((s, index) => {
-        html += `
-          <tr>
-            <td><strong>${s.titulo}</strong></td>
-            <td style="font-size:0.85rem; color:var(--text-muted);">${s.url}</td>
-            <td><button class="btn btn-danger" style="padding:4px 10px; font-size:0.8rem;" onclick="eliminarStream(${index})"><i class="fa-solid fa-trash"></i> Eliminar</button></td>
-          </tr>
-        `;
-      });
+    const tbody = document.getElementById('streamsTableBody');
+    if(tbody) {
+        let html = "";
+        if(streamsDB.length === 0) {
+            html = '<tr><td colspan="3" style="text-align:center; color:var(--text-muted); padding: 15px;">No hay transmisiones configuradas.</td></tr>';
+        } else {
+            streamsDB.forEach((s, index) => {
+                html += `
+                    <tr>
+                        <td><strong>${s.titulo}</strong></td>
+                        <td style="font-size:0.85rem; color:var(--text-muted);">${s.url}</td>
+                        <td><button class="btn btn-danger" style="padding:4px 10px; font-size:0.8rem;" onclick="eliminarStream(${index})"><i class="fa-solid fa-trash"></i> Eliminar</button></td>
+                    </tr>
+                `;
+            });
+        }
+        tbody.innerHTML = html;
     }
-    tbody.innerHTML = html;
-  }
-
-  const selectStream = document.getElementById('selectStreamActivo');
-  if(selectStream) {
-    let htmlSelect = "";
-    if(streamsDB.length === 0) {
-      htmlSelect = `<option value="">-- No hay transmisiones disponibles --</option>`;
-      document.getElementById('iframeStream').src = "";
-    } else {
-      streamsDB.forEach((s, index) => {
-        htmlSelect += `<option value="${index}">${s.titulo}</option>`;
-      });
+    const selectStream = document.getElementById('selectStreamActivo');
+    if(selectStream) {
+        let htmlSelect = "";
+        if(streamsDB.length === 0) {
+            htmlSelect = '<option value="">-- No hay transmisiones disponibles --</option>';
+            document.getElementById('iframeStream').src = '';
+        } else {
+            streamsDB.forEach((s, index) => {
+                htmlSelect += `<option value="${index}">${s.titulo}</option>`;
+            });
+        }
+        selectStream.innerHTML = htmlSelect;
+        if(streamsDB.length > 0) {
+            document.getElementById('iframeStream').src = streamsDB[0].url;
+        }
     }
-    selectStream.innerHTML = htmlSelect;
-    if(streamsDB.length > 0) {
-      document.getElementById('iframeStream').src = streamsDB[0].url;
-    }
-  }
 }
 
 function cambiarCanalStream() {
-  const selectStream = document.getElementById('selectStreamActivo');
-  const iframe = document.getElementById('iframeStream');
-  if(!selectStream || !iframe) return;
-  let index = selectStream.value;
-  if(index !== "" && streamsDB[index]) {
-    iframe.src = streamsDB[index].url;
-  } else {
-    iframe.src = "";
-  }
+    const selectStream = document.getElementById('selectStreamActivo');
+    const iframe = document.getElementById('iframeStream');
+    if(!selectStream || !iframe) return;
+    let index = selectStream.value;
+    if(index !== "" && streamsDB[index]) {
+        iframe.src = streamsDB[index].url;
+    } else {
+        iframe.src = "";
+    }
 }
 
 function renderUsuarios() {
-  const tbody = document.getElementById('usuariosTableBody');
-  if(tbody) {
-    let html = "";
-    usuariosDB.forEach((u, index) => {
-      html += `
-        <tr>
-          <td>${u.id}</td>
-          <td><strong>${u.nombre}</strong></td>
-          <td>${u.alias}</td>
-          <td><button class="btn btn-danger" style="padding:4px 10px; font-size:0.8rem;" onclick="eliminarUsuario(${index})"><i class="fa-solid fa-trash"></i> Eliminar</button></td>
-        </tr>
-      `;
-    });
-    tbody.innerHTML = html;
-  }
-  renderSaldosTable();
-  renderSaldosSelects();
+    const tbody = document.getElementById('usuariosTableBody');
+    if(tbody) {
+        let html = "";
+        usuariosDB.forEach((u, index) => {
+            html += `
+                <tr>
+                    <td>${u.id}</td>
+                    <td><strong>${u.nombre}</strong></td>
+                    <td>${u.alias}</td>
+                    <td><button class="btn btn-danger" style="padding:4px 10px; font-size:0.8rem;" onclick="eliminarUsuario(${index})"><i class="fa-solid fa-trash"></i> Eliminar</button></td>
+                </tr>
+            `;
+        });
+        tbody.innerHTML = html;
+    }
+    renderSaldosTable();
+    renderSaldosSelects();
 }
 
 function renderCajeros() {
-  const tbody = document.getElementById('cajerosTableBody');
-  if(!tbody) return;
-  let html = "";
-  cajerosDB.forEach((c, index) => {
-    html += `
-      <tr>
-        <td><strong>${c.nombre}</strong></td>
-        <td>${c.usuario}</td>
-        <td><button class="btn btn-danger" style="padding:4px 10px; font-size:0.8rem;" onclick="eliminarCajero(${index})"><i class="fa-solid fa-trash"></i> Eliminar</button></td>
-      </tr>
-    `;
-  });
-  tbody.innerHTML = html;
+    const tbody = document.getElementById('cajerosTableBody');
+    if(!tbody) return;
+    let html = "";
+    cajerosDB.forEach((c, index) => {
+        html += `
+            <tr>
+                <td><strong>${c.nombre}</strong></td>
+                <td>${c.usuario}</td>
+                <td><button class="btn btn-danger" style="padding:4px 10px; font-size:0.8rem;" onclick="eliminarCajero(${index})"><i class="fa-solid fa-trash"></i> Eliminar</button></td>
+            </tr>
+        `;
+    });
+    tbody.innerHTML = html;
 }
 
-function registrarCajero() {
-  const nombre = document.getElementById('cajeroNombre').value.trim();
-  const usuario = document.getElementById('cajeroUser').value.trim();
-  const clave = document.getElementById('cajeroPass').value.trim();
-  
-  if(!nombre || !usuario || !clave) {
-    alert("Por favor complete todos los campos.");
-    return;
-  }
-  cajerosDB.push({ nombre, usuario, clave });
-  document.getElementById('cajeroNombre').value = '';
-  document.getElementById('cajeroUser').value = '';
-  document.getElementById('cajeroPass').value = '';
-  renderCajeros();
-  alert("¡Cajero registrado con éxito!");
-}
+async function registrarCajero() {
+    const nombre = document.getElementById('cajeroNombre').value.trim();
+    const usuario = document.getElementById('cajeroUser').value.trim();
+    const clave = document.getElementById('cajeroPass').value.trim();
+    if(!nombre || !usuario || !clave) {
+        alert("Por favor complete todos los campos.");
+        return;
+    }
+    let nuevoC = { id: "caj_" + Date.now(), nombre, usuario, clave };
+    cajerosDB.push(nuevoC);
+    await guardarEnNube("cajeros", usuario, nuevoC);
 
-function eliminarCajero(index) {
-  if(confirm(`¿Está seguro de eliminar al cajero ${cajerosDB[index].nombre}?`)) {
-    cajerosDB.splice(index, 1);
+    document.getElementById('cajeroNombre').value = '';
+    document.getElementById('cajeroUser').value = '';
+    document.getElementById('cajeroPass').value = '';
     renderCajeros();
-    alert("Cajero eliminado.");
-  }
+    alert("¡Cajero registrado con éxito en la nube!");
+}
+
+async function eliminarCajero(index) {
+    if(confirm(`¿Está seguro de eliminar al cajero ${cajerosDB[index].nombre}?`)) {
+        let cajeroEliminado = cajerosDB[index];
+        cajerosDB.splice(index, 1);
+        if(cajeroEliminado.usuario) {
+            await eliminarDeNube("cajeros", cajeroEliminado.usuario);
+        }
+        renderCajeros();
+        alert("Cajero eliminado.");
+    }
 }
 
 function renderSaldosTable() {
-  const tbody = document.getElementById('saldosTableBody');
-  if(!tbody) return;
-  let html = "";
-  usuariosDB.forEach(u => {
-    html += `
-      <tr>
-        <td><strong>${u.nombre}</strong></td>
-        <td>${u.alias}</td>
-        <td style="color:var(--success); font-weight:bold;">$${u.saldos.USD.toFixed(2)}</td>
-        <td style="color:var(--success); font-weight:bold;">${u.saldos.USDT.toFixed(2)}</td>
-        <td style="color:var(--success); font-weight:bold;">Bs. ${u.saldos.BSF.toFixed(2)}</td>
-      </tr>
-    `;
-  });
-  tbody.innerHTML = html;
+    const tbody = document.getElementById('saldosTableBody');
+    if(!tbody) return;
+    let html = "";
+    usuariosDB.forEach(u => {
+        html += `
+            <tr>
+                <td><strong>${u.nombre}</strong></td>
+                <td>${u.alias}</td>
+                <td style="color:var(--success); font-weight:bold;">$${u.saldos.USD.toFixed(2)}</td>
+                <td style="color:var(--success); font-weight:bold;">${u.saldos.USDT.toFixed(2)}</td>
+                <td style="color:var(--success); font-weight:bold;">Bs. ${u.saldos.BSF.toFixed(2)}</td>
+            </tr>
+        `;
+    });
+    tbody.innerHTML = html;
 }
 
 function renderSaldosSelects() {
-  const selectSaldo = document.getElementById('saldoUserSelect');
-  const selectFactura = document.getElementById('facturaUserSelect');
-  const selectModalFiltroUsuario = document.getElementById('filtroModalUsuario');
-  
-  let htmlSelects = "";
-  usuariosDB.forEach(u => {
-    htmlSelects += `<option value="${u.nombre}">${u.nombre} (${u.alias})</option>`;
-  });
-  
-  if(selectSaldo) selectSaldo.innerHTML = htmlSelects;
-  if(selectFactura) selectFactura.innerHTML = htmlSelects;
-  
-  if(selectModalFiltroUsuario) {
-    let valorPrevio = selectModalFiltroUsuario.value;
-    let htmlModal = `<option value="TODOS">-- Todos los Jugadores --</option>`;
+    const selectSaldo = document.getElementById('saldoUserSelect');
+    const selectFactura = document.getElementById('facturaUserSelect');
+    const selectModalFiltroUsuario = document.getElementById('filtroModalUsuario');
+    let htmlSelects = "";
     usuariosDB.forEach(u => {
-      htmlModal += `<option value="${u.nombre}">${u.nombre} (${u.alias})</option>`;
+        htmlSelects += `<option value="${u.nombre}">${u.nombre} (${u.alias})</option>`;
     });
-    selectModalFiltroUsuario.innerHTML = htmlModal;
-    selectModalFiltroUsuario.value = valorPrevio;
-  }
+    if(selectSaldo) selectSaldo.innerHTML = htmlSelects;
+    if(selectFactura) selectFactura.innerHTML = htmlSelects;
+    if(selectModalFiltroUsuario) {
+        let valorPrevio = selectModalFiltroUsuario.value;
+        let htmlModal = '<option value="TODOS">-- Todos los Jugadores --</option>';
+        usuariosDB.forEach(u => {
+            htmlModal += `<option value="${u.nombre}">${u.nombre} (${u.alias})</option>`;
+        });
+        selectModalFiltroUsuario.innerHTML = htmlModal;
+        selectModalFiltroUsuario.value = valorPrevio;
+    }
 }
 
 function renderFacturacion() {
-  const tbody = document.getElementById('facturaTableBody');
-  if(!tbody) return;
-  let html = "";
-  facturasDB.forEach((f, index) => {
-    let badgeStyle = 'background:rgba(245,158,11,0.15); color:var(--warning);';
-    if(f.estado.includes('Ganado')) badgeStyle = 'background:rgba(16,185,129,0.15); color:var(--success);';
-    if(f.estado.includes('Perdedor')) badgeStyle = 'background:rgba(239,68,68,0.15); color:var(--danger);';
-    if(f.estado.includes('Anulado')) badgeStyle = 'background:rgba(148,163,184,0.15); color:var(--text-muted);';
-    
-    let isLocked = f.estado === 'Ganado / Pagado' || f.estado === 'Perdedor' || f.estado === 'Anulado';
-    let accionesHTML = "";
-    if(isLocked) {
-      accionesHTML = `<span style="font-size: 0.8rem; color: var(--text-muted); font-style: italic;"><i class="fa-solid fa-lock"></i> Bloqueado</span>`;
-    } else {
-      accionesHTML = `
-        <div style="display: flex; gap: 6px;">
-          <button class="btn btn-success" style="padding: 4px 8px; font-size: 0.75rem;" onclick="abrirModalPremiar(${index})"><i class="fa-solid fa-trophy"></i> Premiar</button>
-          <button class="btn btn-danger" style="padding: 4px 8px; font-size: 0.75rem;" onclick="cambiarEstadoTicket(${index}, 'Perdedor')"><i class="fa-solid fa-xmark"></i> Perdedor</button>
-          <button class="btn" style="padding: 4px 8px; font-size: 0.75rem; background:rgba(148,163,184,0.15); color:var(--text-muted); border:1px solid var(--text-muted);" onclick="cambiarEstadoTicket(${index}, 'Anulado')"><i class="fa-solid fa-ban"></i> Anular</button>
-        </div>
-      `;
-    }
-    
-    html += `
-      <tr>
-        <td><strong>${f.id}</strong></td>
-        <td>${f.cajero}</td>
-        <td>${f.fecha}</td>
-        <td>${f.cliente}</td>
-        <td>${f.hipodromo}</td>
-        <td style="color:var(--accent-gold); font-weight:bold;">$${f.monto.toFixed(2)}</td>
-        <td>${f.moneda}</td>
-        <td><span style="${badgeStyle} padding:4px 8px; border-radius:10px; font-size:0.75rem; font-weight:bold;">${f.estado}</span></td>
-        <td>${accionesHTML}</td>
-      </tr>
-    `;
-  });
-  tbody.innerHTML = html;
+    const tbody = document.getElementById('facturaTableBody');
+    if(!tbody) return;
+    let html = "";
+    facturasDB.forEach((f, index) => {
+        let badgeStyle = 'background:rgba(245,158,11,0.15); color:var(--warning);';
+        if(f.estado.includes('Ganado')) badgeStyle = 'background:rgba(16,185,129,0.15); color:var(--success);';
+        if(f.estado.includes('Perdedor')) badgeStyle = 'background:rgba(239,68,68,0.15); color:var(--danger);';
+        if(f.estado.includes('Anulado')) badgeStyle = 'background:rgba(148,163,184,0.15); color:var(--text-muted);';
+        
+        let isLocked = f.estado === 'Ganado / Pagado' || f.estado === 'Perdedor' || f.estado === 'Anulado';
+        let accionesHTML = "";
+        if(isLocked) {
+            accionesHTML = `<span style="font-size: 0.8rem; color: var(--text-muted); font-style: italic;"><i class="fa-solid fa-lock"></i> Bloqueado</span>`;
+        } else {
+            accionesHTML = `
+                <div style="display: flex; gap: 6px;">
+                    <button class="btn btn-success" style="padding: 4px 8px; font-size: 0.75rem;" onclick="abrirModalPremiar(${index})"><i class="fa-solid fa-trophy"></i> Premiar</button>
+                    <button class="btn btn-danger" style="padding: 4px 8px; font-size: 0.75rem;" onclick="cambiarEstadoTicket(${index}, 'Perdedor')"><i class="fa-solid fa-xmark"></i> Perdedor</button>
+                    <button class="btn" style="padding: 4px 8px; font-size: 0.75rem; background:rgba(148,163,184,0.15); color:var(--text-muted); border:1px solid var(--text-muted);" onclick="cambiarEstadoTicket(${index}, 'Anulado')"><i class="fa-solid fa-ban"></i> Anular</button>
+                </div>
+            `;
+        }
+        html += `
+            <tr>
+                <td><strong>${f.id}</strong></td>
+                <td>${f.cajero}</td>
+                <td>${f.fecha}</td>
+                <td>${f.cliente}</td>
+                <td>${f.hipodromo}</td>
+                <td style="color:var(--accent-gold); font-weight:bold;">$${f.monto.toFixed(2)}</td>
+                <td>${f.moneda}</td>
+                <td><span style="${badgeStyle} padding:4px 8px; border-radius: 10px; font-size:0.75rem; font-weight:bold;">${f.estado}</span></td>
+                <td>${accionesHTML}</td>
+            </tr>
+        `;
+    });
+    tbody.innerHTML = html;
 }
 
 function abrirModalPremiar(index) {
-  ticketSeleccionadoIndex = index;
-  let ticket = facturasDB[index];
-  document.getElementById('modalTicketInfo').innerText = `Ticket: ${ticket.id} | Cliente: ${ticket.cliente} (${ticket.moneda})`;
-  document.getElementById('modalPremioMonto').value = (ticket.monto * 2).toFixed(2);
-  document.getElementById('modalPremiar').style.display = 'flex';
+    ticketSeleccionadoIndex = index;
+    let ticket = facturasDB[index];
+    document.getElementById('modalTicketInfo').innerText = `Ticket: ${ticket.id} | Cliente: ${ticket.cliente} (${ticket.moneda})`;
+    document.getElementById('modalPremioMonto').value = (ticket.monto * 2).toFixed(2);
+    document.getElementById('modalPremiar').style.display = 'flex';
 }
 
 function cerrarModalPremiar() {
-  document.getElementById('modalPremiar').style.display = 'none';
-  ticketSeleccionadoIndex = null;
+    document.getElementById('modalPremiar').style.display = 'none';
+    ticketSeleccionadoIndex = null;
 }
 
-function confirmarPremioTicket() {
-  if(ticketSeleccionadoIndex === null) return;
-  let ticket = facturasDB[ticketSeleccionadoIndex];
-  let montoPremio = parseFloat(document.getElementById('modalPremioMonto').value);
-  if(isNaN(montoPremio) || montoPremio < 0) {
-    alert("Ingrese un monto de premio válido.");
-    return;
-  }
-  ticket.estado = 'Ganado / Pagado';
-  ticket.premioPagado = montoPremio;
-  let usuario = usuariosDB.find(u => u.nombre === ticket.cliente);
-  if(usuario) {
-    usuario.saldos[ticket.moneda] += montoPremio;
-    alert(`¡Ticket premiado! Se acreditaron ${montoPremio.toFixed(2)} ${ticket.moneda} al cliente ${usuario.nombre}.`);
-  }
-  cerrarModalPremiar();
-  renderFacturacion();
-  renderUsuarios();
-  renderCuadre();
-}
-
-function cambiarEstadoTicket(index, nuevoEstado) {
-  let ticket = facturasDB[index];
-  if(ticket.estado === 'Ganado / Pagado' || ticket.estado === 'Perdedor' || ticket.estado === 'Anulado') {
-    alert("Este ticket ya está finalizado.");
-    return;
-  }
-  if(confirm(`¿Confirma marcar el ticket ${ticket.id} como "${nuevoEstado}"?`)) {
-    ticket.estado = nuevoEstado;
-    if(nuevoEstado === 'Perdedor') {
-      ticket.premioPagado = 0;
-    } else if(nuevoEstado === 'Anulado') {
-      ticket.premioPagado = 0;
-      let usuario = usuariosDB.find(u => u.nombre === ticket.cliente);
-      if(usuario) {
-        usuario.saldos[ticket.moneda] += ticket.monto;
-        alert(`Ticket anulado. Se reembolsaron ${ticket.monto.toFixed(2)} ${ticket.moneda} a ${usuario.nombre}.`);
-      }
+async function confirmarPremioTicket() {
+    if(ticketSeleccionadoIndex === null) return;
+    let ticket = facturasDB[ticketSeleccionadoIndex];
+    let montoPremio = parseFloat(document.getElementById('modalPremioMonto').value);
+    if(isNaN(montoPremio) || montoPremio < 0) {
+        alert("Ingrese un monto de premio válido.");
+        return;
     }
+    ticket.estado = 'Ganado / Pagado';
+    ticket.premioPagado = montoPremio;
+    
+    let usuario = usuariosDB.find(u => u.nombre === ticket.cliente);
+    if(usuario) {
+        usuario.saldos[ticket.moneda] += montoPremio;
+        await guardarEnNube("clientes", usuario.id, usuario);
+    }
+    await guardarEnNube("facturas", ticket.id, ticket);
+
+    cerrarModalPremiar();
     renderFacturacion();
     renderUsuarios();
     renderCuadre();
-  }
+    alert(`¡Ticket premiado! Se acreditaron ${montoPremio.toFixed(2)} ${ticket.moneda} al cliente ${ticket.cliente}.`);
+}
+
+async function cambiarEstadoTicket(index, nuevoEstado) {
+    let ticket = facturasDB[index];
+    if(ticket.estado === 'Ganado / Pagado' || ticket.estado === 'Perdedor' || ticket.estado === 'Anulado') {
+        alert("Este ticket ya está finalizado.");
+        return;
+    }
+    if(confirm(`¿Confirma marcar el ticket ${ticket.id} como "${nuevoEstado}"?`)) {
+        ticket.estado = nuevoEstado;
+        if(nuevoEstado === 'Perdedor') {
+            ticket.premioPagado = 0;
+        } else if(nuevoEstado === 'Anulado') {
+            ticket.premioPagado = 0;
+            let usuario = usuariosDB.find(u => u.nombre === ticket.cliente);
+            if(usuario) {
+                usuario.saldos[ticket.moneda] += ticket.monto;
+                await guardarEnNube("clientes", usuario.id, usuario);
+                alert(`Ticket anulado. Se reembolsaron ${ticket.monto.toFixed(2)} ${ticket.moneda} a ${usuario.nombre}.`);
+            }
+        }
+        await guardarEnNube("facturas", ticket.id, ticket);
+        renderFacturacion();
+        renderUsuarios();
+        renderCuadre();
+    }
 }
 
 function renderCuadre() {
-  let netoUSD = finanzas.recargas.USD - finanzas.retiros.USD;
-  let netoUSDT = finanzas.recargas.USDT - finanzas.retiros.USDT;
-  let netoBSF = finanzas.recargas.BSF - finanzas.retiros.BSF;
+    let totalesRecargados = { USD: 0, USDT: 0, BSF: 0 };
+    let totalesRetirados = { USD: 0, USDT: 0, BSF: 0 };
+    let totalesTickets = { USD: 0, USDT: 0, BSF: 0 };
 
-  const elUSD = document.getElementById('statNetoUSD');
-  if(elUSD) {
-    elUSD.innerText = `$${netoUSD.toFixed(2)}`;
-    document.getElementById('statNetoUSDT').innerText = `${netoUSDT.toFixed(2)}`;
-    document.getElementById('statNetoBSF').innerText = `Bs. ${netoBSF.toFixed(2)}`;
-    document.getElementById('statTicketsUSD').innerText = `$${finanzas.tickets.USD.toFixed(2)}`;
-    document.getElementById('statTicketsUSDT').innerText = `${finanzas.tickets.USDT.toFixed(2)}`;
-    document.getElementById('statTicketsBSF').innerText = `Bs. ${finanzas.tickets.BSF.toFixed(2)}`;
-    
+    facturasDB.forEach(f => {
+        if(f.estado !== 'Anulado') {
+            if(f.moneda === 'USD') totalesTickets.USD += f.monto;
+            if(f.moneda === 'USDT') totalesTickets.USDT += f.monto;
+            if(f.moneda === 'BSF') totalesTickets.BSF += f.monto;
+        }
+    });
+
+    const elUSD = document.getElementById('statNetoUSD');
+    if(elUSD) {
+        elUSD.innerText = `$${totalesRecargados.USD.toFixed(2)}`;
+        document.getElementById('statNetoUSDT').innerText = `${totalesRecargados.USDT.toFixed(2)}`;
+        document.getElementById('statNetoBSF').innerText = `Bs. ${totalesRecargados.BSF.toFixed(2)}`;
+        document.getElementById('statTicketsUSD').innerText = `$${totalesTickets.USD.toFixed(2)}`;
+        document.getElementById('statTicketsUSDT').innerText = `${totalesTickets.USDT.toFixed(2)}`;
+        document.getElementById('statTicketsBSF').innerText = `Bs. ${totalesTickets.BSF.toFixed(2)}`;
+    }
+
     let cajerosResumen = {};
     cajerosDB.forEach(c => {
-      cajerosResumen[c.nombre] = { count: 0, USD: 0, USDT: 0, BSF: 0 };
+        cajerosResumen[c.nombre] = { count: 0, USD: 0, USDT: 0, BSF: 0 };
     });
     cajerosResumen["Cajero Principal"] = { count: 0, USD: 0, USDT: 0, BSF: 0 };
-    
+
     facturasDB.forEach(f => {
-      if(!cajerosResumen[f.cajero]) {
-        cajerosResumen[f.cajero] = { count: 0, USD: 0, USDT: 0, BSF: 0 };
-      }
-      cajerosResumen[f.cajero].count++;
-      if(f.moneda === 'USD') cajerosResumen[f.cajero].USD += f.monto;
-      if(f.moneda === 'USDT') cajerosResumen[f.cajero].USDT += f.monto;
-      if(f.moneda === 'BSF') cajerosResumen[f.cajero].BSF += f.monto;
+        if(f.estado !== 'Anulado') {
+            if(!cajerosResumen[f.cajero]) {
+                cajerosResumen[f.cajero] = { count: 0, USD: 0, USDT: 0, BSF: 0 };
+            }
+            cajerosResumen[f.cajero].count++;
+            if(f.moneda === 'USD') cajerosResumen[f.cajero].USD += f.monto;
+            if(f.moneda === 'USDT') cajerosResumen[f.cajero].USDT += f.monto;
+            if(f.moneda === 'BSF') cajerosResumen[f.cajero].BSF += f.monto;
+        }
     });
 
     let tbodyCajeros = document.getElementById('cuadreCajerosTableBody');
-    let htmlCajeros = "";
-    for(let cajero in cajerosResumen) {
-      let data = cajerosResumen[cajero];
-      htmlCajeros += `
-        <tr>
-          <td><strong>${cajero}</strong></td>
-          <td>${data.count}</td>
-          <td style="color:var(--accent-gold);">$${data.USD.toFixed(2)}</td>
-          <td style="color:var(--accent-gold);">${data.USDT.toFixed(2)}</td>
-          <td style="color:var(--accent-gold);">Bs. ${data.BSF.toFixed(2)}</td>
-        </tr>
-      `;
+    if(tbodyCajeros) {
+        let htmlCajeros = "";
+        for(let cajero in cajerosResumen) {
+            let data = cajerosResumen[cajero];
+            htmlCajeros += `
+                <tr>
+                    <td><strong>${cajero}</strong></td>
+                    <td>${data.count}</td>
+                    <td style="color:var(--accent-gold);">$${data.USD.toFixed(2)}</td>
+                    <td style="color:var(--accent-gold);">${data.USDT.toFixed(2)}</td>
+                    <td style="color:var(--accent-gold);">Bs. ${data.BSF.toFixed(2)}</td>
+                </tr>
+            `;
+        }
+        tbodyCajeros.innerHTML = htmlCajeros;
     }
-    tbodyCajeros.innerHTML = htmlCajeros;
     renderHistorialCuadres();
-  }
 }
 
 function renderHistorialCuadres(filtrado = null) {
-  const tbody = document.getElementById('historialCuadreTableBody');
-  if(!tbody) return;
-  let lista = filtrado || historialCuadresDB;
-  if(lista.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding: 20px;">No se encontraron cierres de caja.</td></tr>`;
-    return;
-  }
-  let html = "";
-  lista.forEach((h) => {
-    let realIndex = historialCuadresDB.indexOf(h);
-    let ingresosStr = `$${(h.general.USD?.ingresos || 0).toFixed(2)} USD | ${(h.general.USDT?.ingresos || 0).toFixed(2)} USDT | Bs.${(h.general.BSF?.ingresos || 0).toFixed(2)} BSF`;
-    let egresosStr = `$${(h.general.USD?.egresos || 0).toFixed(2)} USD | ${(h.general.USDT?.egresos || 0).toFixed(2)} USDT | Bs.${(h.general.BSF?.egresos || 0).toFixed(2)} BSF`;
-    let netoStr = `USD: $${(h.general.USD?.neto || 0).toFixed(2)} | USDT: ${(h.general.USDT?.neto || 0).toFixed(2)} | BSF: Bs.${(h.general.BSF?.neto || 0).toFixed(2)}`;
-    
-    html += `
-      <tr>
-        <td><strong>${h.fecha}</strong></td>
-        <td style="font-size:0.85rem;">${ingresosStr}</td>
-        <td style="font-size:0.85rem; color:var(--danger);">${egresosStr}</td>
-        <td style="font-size:0.85rem; font-weight:bold; color:var(--accent-gold);">${netoStr}</td>
-        <td><button class="btn btn-gold" style="padding: 4px 10px; font-size:0.8rem;" onclick="verDetalleCuadre(${realIndex})"><i class="fa-solid fa-eye"></i> Ver Desglose</button></td>
-      </tr>
-    `;
-  });
-  tbody.innerHTML = html;
+    const tbody = document.getElementById('historialCuadreTableBody');
+    if(!tbody) return;
+    let lista = filtrado || historialCuadresDB;
+    if(lista.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding: 20px;">No se encontraron cierres de caja.</td></tr>`;
+        return;
+    }
+    let html = "";
+    lista.forEach((h) => {
+        let realIndex = historialCuadresDB.indexOf(h);
+        let ingresosStr = `$${(h.general.USD?.ingresos || 0).toFixed(2)} USD | ${(h.general.USDT?.ingresos || 0).toFixed(2)} USDT | Bs.${(h.general.BSF?.ingresos || 0).toFixed(2)} BSF`;
+        let egresosStr = `$${(h.general.USD?.egresos || 0).toFixed(2)} USD | ${(h.general.USDT?.egresos || 0).toFixed(2)} USDT | Bs.${(h.general.BSF?.egresos || 0).toFixed(2)} BSF`;
+        let netoStr = `USD: $${(h.general.USD?.neto || 0).toFixed(2)} | USDT: ${(h.general.USDT?.neto || 0).toFixed(2)} | BSF: Bs.${(h.general.BSF?.neto || 0).toFixed(2)}`;
+        html += `
+            <tr>
+                <td><strong>${h.fecha}</strong></td>
+                <td style="font-size:0.85rem;">${ingresosStr}</td>
+                <td style="font-size:0.85rem; color:var(--danger);">${egresosStr}</td>
+                <td style="font-size:0.85rem; font-weight:bold; color:var(--accent-gold);">${netoStr}</td>
+                <td><button class="btn btn-gold" style="padding: 4px 10px; font-size:0.8rem;" onclick="verDetalleCuadre(${realIndex})"><i class="fa-solid fa-eye"></i> Ver Desglose</button></td>
+            </tr>
+        `;
+    });
+    tbody.innerHTML = html;
 }
 
 function filtrarHistorialCuadres() {
-  const fechaBusqueda = document.getElementById('searchFechaCuadre').value;
-  if (!fechaBusqueda) {
-    renderHistorialCuadres();
-    return;
-  }
-  let filtrados = historialCuadresDB.filter(h => h.fecha === fechaBusqueda);
-  renderHistorialCuadres(filtrados);
+    const fechaBusqueda = document.getElementById('searchFechaCuadre').value;
+    if (!fechaBusqueda) {
+        renderHistorialCuadres();
+        return;
+    }
+    let filtrados = historialCuadresDB.filter(h => h.fecha === fechaBusqueda);
+    renderHistorialCuadres(filtrados);
 }
 
 function limpiarFiltroCuadre() {
-  document.getElementById('searchFechaCuadre').value = '';
-  renderHistorialCuadres();
+    document.getElementById('searchFechaCuadre').value = '';
+    renderHistorialCuadres();
 }
 
 function verDetalleCuadre(index) {
-  modalHistorialIndexActual = index;
-  let h = historialCuadresDB[index];
-  document.getElementById('modalHistorialFecha').innerText = `Fecha de Cierre: ${h.fecha}`;
-  document.getElementById('filtroModalUsuario').value = 'TODOS';
-  document.getElementById('filtroModalMoneda').value = 'TODAS';
-  renderizarContenidoModalDesglose(h);
-  document.getElementById('modalHistorialDetalle').style.display = 'flex';
+    modalHistorialIndexActual = index;
+    let h = historialCuadresDB[index];
+    document.getElementById('modalHistorialFecha').innerText = `Fecha de Cierre: ${h.fecha}`;
+    document.getElementById('filtroModalUsuario').value = 'TODOS';
+    document.getElementById('filtroModalMoneda').value = 'TODAS';
+    renderizarContenidoModalDesglose(h);
+    document.getElementById('modalHistorialDetalle').style.display = 'flex';
 }
 
 function actualizarTablaDetalleModal() {
-  if (modalHistorialIndexActual === null) return;
-  let h = historialCuadresDB[modalHistorialIndexActual];
-  renderizarContenidoModalDesglose(h);
+    if (modalHistorialIndexActual === null) return;
+    let h = historialCuadresDB[modalHistorialIndexActual];
+    renderizarContenidoModalDesglose(h);
 }
 
 function resetFiltrosModal() {
-  document.getElementById('filtroModalUsuario').value = 'TODOS';
-  document.getElementById('filtroModalMoneda').value = 'TODAS';
-  actualizarTablaDetalleModal();
+    document.getElementById('filtroModalUsuario').value = 'TODOS';
+    document.getElementById('filtroModalMoneda').value = 'TODAS';
+    actualizarTablaDetalleModal();
 }
 
 function renderizarContenidoModalDesglose(h) {
-  const filtroUsr = document.getElementById('filtroModalUsuario').value;
-  const filtroMon = document.getElementById('filtroModalMoneda').value;
-  
-  let htmlResumen = `<strong><i class="fa-solid fa-chart-pie"></i> Balance General de Casa por Moneda:</strong><br><br>`;
-  for(let m in h.general) {
-    let g = h.general[m];
-    let colorNeto = g.neto >= 0 ? 'var(--success)' : 'var(--danger)';
-    htmlResumen += `<strong>${m}:</strong> Apostado: <span style="color:var(--success);">${g.ingresos.toFixed(2)}</span> | Premios: <span style="color:var(--danger);">${g.egresos.toFixed(2)}</span> | Balance: <strong style="color:${colorNeto};">${g.neto.toFixed(2)}</strong><br>`;
-  }
-  document.getElementById('modalHistorialResumenGral').innerHTML = htmlResumen;
-  
-  let tbodyClientes = document.getElementById('modalHistorialClientesBody');
-  let htmlClientes = "";
-  let clientesFiltrados = h.clientes.filter(c => {
-    let matchUsr = (filtroUsr === 'TODOS' || c.cliente === filtroUsr);
-    let matchMon = (filtroMon === 'TODAS' || c.moneda === filtroMon);
-    return matchUsr && matchMon;
-  });
-  
-  if (!clientesFiltrados || clientesFiltrados.length === 0) {
-    htmlClientes = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding: 15px;">No se encontraron registros.</td></tr>`;
-  } else {
-    clientesFiltrados.forEach(c => {
-      let colorSaldo = c.saldo >= 0 ? 'var(--success)' : 'var(--danger)';
-      let badgeEstado = c.saldo >= 0
-        ? `<span style="background:rgba(16,185,129,0.15); color:var(--success); padding:2px 6px; border-radius:6px; font-size:0.75rem; font-weight:bold;">La casa ganó</span>`
-        : `<span style="background:rgba(239,68,68,0.15); color:var(--danger); padding:2px 6px; border-radius:6px; font-size:0.75rem; font-weight:bold;">El cliente ganó</span>`;
-      
-      htmlClientes += `
-        <tr>
-          <td><strong>${c.cliente}</strong></td>
-          <td><span class="badge-cashier" style="padding:2px 8px; font-size:0.75rem;">${c.moneda}</span></td>
-          <td style="color:var(--text-main);">${c.apostado.toFixed(2)}</td>
-          <td style="color:var(--danger);">${c.ganado.toFixed(2)}</td>
-          <td>
-            <strong style="color:${colorSaldo};">${c.saldo >= 0 ? '+' : ''}${c.saldo.toFixed(2)}</strong><br>
-            ${badgeEstado}
-          </td>
-        </tr>
-      `;
+    const filtroUsr = document.getElementById('filtroModalUsuario').value;
+    const filtroMon = document.getElementById('filtroModalMoneda').value;
+    let htmlResumen = `<strong><i class="fa-solid fa-chart-pie"></i> Balance General de Casa por Moneda:</strong><br><br>`;
+    for(let m in h.general) {
+        let g = h.general[m];
+        let colorNeto = g.neto >= 0 ? 'var(--success)' : 'var(--danger)';
+        htmlResumen += `<strong>${m}:</strong> Apostado: <span style="color:var(--success);">${g.ingresos.toFixed(2)}</span> | Premios: <span style="color:var(--danger);">${g.egresos.toFixed(2)}</span> | Balance: <strong style="color:${colorNeto};">${g.neto.toFixed(2)}</strong><br>`;
+    }
+    document.getElementById('modalHistorialResumenGral').innerHTML = htmlResumen;
+
+    let tbodyClientes = document.getElementById('modalHistorialClientesBody');
+    let htmlClientes = "";
+    let clientesFiltrados = h.clientes.filter(c => {
+        let matchUsr = (filtroUsr === 'TODOS' || c.cliente === filtroUsr);
+        let matchMon = (filtroMon === 'TODAS' || c.moneda === filtroMon);
+        return matchUsr && matchMon;
     });
-  }
-  tbodyClientes.innerHTML = htmlClientes;
+
+    if (!clientesFiltrados || clientesFiltrados.length === 0) {
+        htmlClientes = '<tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding: 15px;">No se encontraron registros.</td></tr>';
+    } else {
+        clientesFiltrados.forEach(c => {
+            let colorSaldo = c.saldo >= 0 ? 'var(--success)' : 'var(--danger)';
+            let badgeEstado = c.saldo >= 0 
+                ? `<span style="background:rgba(16,185,129,0.15); color:var(--success); padding:2px 6px; border-radius:6px; font-size:0.75rem; font-weight:bold;">La casa ganó</span>`
+                : `<span style="background:rgba(239,68,68,0.15); color:var(--danger); padding:2px 6px; border-radius:6px; font-size:0.75rem; font-weight:bold;">El cliente ganó</span>`;
+            htmlClientes += `
+                <tr>
+                    <td><strong>${c.cliente}</strong></td>
+                    <td><span class="badge-cashier" style="padding:2px 8px; font-size:0.75rem;">${c.moneda}</span></td>
+                    <td style="color:var(--text-main);">${c.apostado.toFixed(2)}</td>
+                    <td style="color:var(--danger);">${c.ganado.toFixed(2)}</td>
+                    <td>
+                        <strong style="color:${colorSaldo};">${c.saldo >= 0 ? '+' : ''}${c.saldo.toFixed(2)}</strong><br>
+                        ${badgeEstado}
+                    </td>
+                </tr>
+            `;
+        });
+    }
+    tbodyClientes.innerHTML = htmlClientes;
 }
 
 function cerrarModalHistorial() {
-  document.getElementById('modalHistorialDetalle').style.display = 'none';
-  modalHistorialIndexActual = null;
+    document.getElementById('modalHistorialDetalle').style.display = 'none';
+    modalHistorialIndexActual = null;
 }
 
-function registrarUsuario() {
-  const nombre = document.getElementById('nuevoNombre').value.trim();
-  const alias = document.getElementById('nuevoAlias').value.trim();
-  if(!nombre || !alias) {
-    alert("Complete el nombre y el alias.");
-    return;
-  }
-  const nuevoId = "#U-00" + (usuariosDB.length + 1);
-  usuariosDB.push({ id: nuevoId, nombre: nombre, alias: alias, saldos: { USD: 0.00, USDT: 0.00, BSF: 0.00 } });
-  document.getElementById('nuevoNombre').value = '';
-  document.getElementById('nuevoAlias').value = '';
-  renderUsuarios();
-  alert("¡Jugador registrado con éxito!");
-}
+async function registrarUsuario() {
+    const nombre = document.getElementById('nuevoNombre').value.trim();
+    const alias = document.getElementById('nuevoAlias').value.trim();
+    if(!nombre || !alias) {
+        alert("Complete el nombre y el alias.");
+        return;
+    }
+    const nuevoId = "#U-00" + (usuariosDB.length + 1);
+    const nuevoUsr = { id: nuevoId, nombre: nombre, alias: alias, saldos: { USD: 0.00, USDT: 0.00, BSF: 0.00 } };
+    usuariosDB.push(nuevoUsr);
+    await guardarEnNube("clientes", nuevoId, nuevoUsr);
 
-function eliminarUsuario(index) {
-  if(confirm(`¿Desea eliminar al jugador ${usuariosDB[index].nombre}?`)) {
-    usuariosDB.splice(index, 1);
+    document.getElementById('nuevoNombre').value = '';
+    document.getElementById('nuevoAlias').value = '';
     renderUsuarios();
-    alert("Jugador eliminado.");
-  }
+    alert("¡Jugador registrado y guardado con éxito en la nube!");
 }
 
-function procesarSaldo() {
-  const nombreSeleccionado = document.getElementById('saldoUserSelect').value;
-  const tipo = document.getElementById('saldoTipoSelect').value;
-  const moneda = document.getElementById('saldoMonedaSelect').value;
-  const monto = parseFloat(document.getElementById('saldoMontoInput').value);
-  
-  if(isNaN(monto) || monto <= 0) {
-    alert("Ingrese un monto válido.");
-    return;
-  }
-  let usuario = usuariosDB.find(u => u.nombre === nombreSeleccionado);
-  if(!usuario) return;
-  
-  if(tipo === 'recarga') {
-    usuario.saldos[moneda] += monto;
-    finanzas.recargas[moneda] += monto;
-    alert("¡Recarga realizada con éxito!");
-  } else {
+async function eliminarUsuario(index) {
+    if(confirm(`¿Desea eliminar al jugador ${usuariosDB[index].nombre}?`)) {
+        let userEliminado = usuariosDB[index];
+        usuariosDB.splice(index, 1);
+        if(userEliminado.id) {
+            await eliminarDeNube("clientes", userEliminado.id);
+        }
+        renderUsuarios();
+        alert("Jugador eliminado.");
+    }
+}
+
+async function procesarSaldo() {
+    const nombreSeleccionado = document.getElementById('saldoUserSelect').value;
+    const tipo = document.getElementById('saldoTipoSelect').value;
+    const moneda = document.getElementById('saldoMonedaSelect').value;
+    const monto = parseFloat(document.getElementById('saldoMontoInput').value);
+    if(isNaN(monto) || monto <= 0) {
+        alert("Ingrese un monto válido.");
+        return;
+    }
+    let usuario = usuariosDB.find(u => u.nombre === nombreSeleccionado);
+    if(!usuario) return;
+
+    if(tipo === 'recarga') {
+        usuario.saldos[moneda] += monto;
+        alert("¡Recarga realizada con éxito!");
+    } else {
+        if(usuario.saldos[moneda] < monto) {
+            alert(`El usuario no tiene suficiente saldo en ${moneda}.`);
+            return;
+        }
+        usuario.saldos[moneda] -= monto;
+        alert("¡Retiro procesado!");
+    }
+    await guardarEnNube("clientes", usuario.id, usuario);
+
+    document.getElementById('saldoMontoInput').value = '';
+    renderUsuarios();
+    renderCuadre();
+}
+
+async function generarFactura() {
+    const track = document.getElementById('facturaTrackSelect').value;
+    if(!track) {
+        alert("Seleccione un hipódromo activo.");
+        return;
+    }
+    const carrera = document.getElementById('facturaCarrera').value.trim();
+    const ejemplar = document.getElementById('facturaEjemplar').value.trim();
+    const tipoJugada = document.getElementById('facturaTipoJugada').value;
+    const cliente = document.getElementById('facturaUserSelect').value;
+    const monto = parseFloat(document.getElementById('facturaMonto').value);
+    const moneda = document.getElementById('facturaMoneda').value;
+
+    if(!ejemplar || isNaN(monto) || monto <= 0) {
+        alert("Ingrese el número de caballo y un monto válido.");
+        return;
+    }
+    let usuario = usuariosDB.find(u => u.nombre === cliente);
     if(usuario.saldos[moneda] < monto) {
-      alert(`El usuario no tiene suficiente saldo en ${moneda}.`);
-      return;
+        alert(`El cliente no posee suficiente saldo en ${moneda}.`);
+        return;
     }
     usuario.saldos[moneda] -= monto;
-    finanzas.retiros[moneda] += monto;
-    alert("¡Retiro procesado!");
-  }
-  document.getElementById('saldoMontoInput').value = '';
-  renderUsuarios();
-  renderCuadre();
-}
+    await guardarEnNube("clientes", usuario.id, usuario);
 
-function generarFactura() {
-  const track = document.getElementById('facturaTrackSelect').value;
-  if(!track) {
-    alert("Seleccione un hipódromo activo.");
-    return;
-  }
-  const carrera = document.getElementById('facturaCarrera').value.trim();
-  const ejemplar = document.getElementById('facturaEjemplar').value.trim();
-  const tipoJugada = document.getElementById('facturaTipoJugada').value;
-  const cliente = document.getElementById('facturaUserSelect').value;
-  const monto = parseFloat(document.getElementById('facturaMonto').value);
-  const moneda = document.getElementById('facturaMoneda').value;
-  
-  if(!ejemplar || isNaN(monto) || monto <= 0) {
-    alert("Ingrese el número de caballo y un monto válido.");
-    return;
-  }
-  let usuario = usuariosDB.find(u => u.nombre === cliente);
-  if(usuario.saldos[moneda] < monto) {
-    alert(`El cliente no posee suficiente saldo en ${moneda}.`);
-    return;
-  }
-  
-  usuario.saldos[moneda] -= monto;
-  finanzas.tickets[moneda] += monto;
-  const nuevoId = "#TK-" + (8902 + facturasDB.length);
-  let hipodromoDetalle = `${track} (C${carrera} - #${ejemplar} [${tipoJugada}])`;
-  
-  facturasDB.unshift({
-    id: nuevoId,
-    cajero: usuarioActual ? usuarioActual.nombre : 'Sistema',
-    fecha: "04/08/2026 19:50",
-    cliente: cliente,
-    hipodromo: hipodromoDetalle,
-    monto: monto,
-    moneda: moneda,
-    estado: "En Curso",
-    premioPagado: 0
-  });sincronizarConNube("facturas", facturasDB[0]);
-  
-  document.getElementById('facturaEjemplar').value = '';
-  document.getElementById('facturaMonto').value = '';
-  renderUsuarios();
-  renderFacturacion();
-  renderCuadre();
-  alert(`¡Ticket ${nuevoId} emitido!`);
-}
-
-function cerrarCaja() {
-  const fechaCierre = document.getElementById('cierreFechaInput').value;
-  if(!fechaCierre) {
-    alert("Seleccione una fecha para el cierre.");
-    return;
-  }
-  if(confirm(`¿Desea ejecutar y guardar el cierre de caja para la fecha ${fechaCierre}?`)) {
-    let generalMonedas = {
-      USD: { ingresos: 0, egresos: 0, neto: 0 },
-      USDT: { ingresos: 0, egresos: 0, neto: 0 },
-      BSF: { ingresos: 0, egresos: 0, neto: 0 }
+    const nuevoId = "#TK-" + Math.floor(1000 + Math.random() * 9000);
+    const fechaActualStr = new Date().toLocaleString();
+    let hipodromoDetalle = `${track} (C${carrera} - #${ejemplar} [${tipoJugada}])`;
+    
+    let nuevaFactura = {
+        id: nuevoId,
+        cajero: usuarioActual ? usuarioActual.nombre : 'Sistema',
+        fecha: fechaActualStr,
+        fechaCreacion: Date.now(),
+        cliente: cliente,
+        hipodromo: hipodromoDetalle,
+        monto: monto,
+        moneda: moneda,
+        estado: "En Curso",
+        premioPagado: 0
     };
-    let clientesMap = {};
-    
-    facturasDB.forEach(f => {
-      let m = f.moneda;
-      let cli = f.cliente;
-      if (!generalMonedas[m]) generalMonedas[m] = { ingresos: 0, egresos: 0, neto: 0 };
-      generalMonedas[m].ingresos += f.monto;
-      
-      if (!clientesMap[cli]) clientesMap[cli] = {};
-      if (!clientesMap[cli][m]) clientesMap[cli][m] = { apostado: 0, ganado: 0 };
-      clientesMap[cli][m].apostado += f.monto;
-      
-      if (f.estado === 'Ganado / Pagado') {
-        let premio = f.premioPagado || 0;
-        generalMonedas[m].egresos += premio;
-        clientesMap[cli][m].ganado += premio;
-      }
-    });
-    
-    for (let m in generalMonedas) {
-      generalMonedas[m].neto = generalMonedas[m].ingresos - generalMonedas[m].egresos;
-    }
-    
-    let clientesList = [];
-    for (let cli in clientesMap) {
-      for (let m in clientesMap[cli]) {
-        let cData = clientesMap[cli][m];
-        let saldoCasa = cData.apostado - cData.ganado;
-        let estadoStr = saldoCasa >= 0 ? "La casa ganó" : "El cliente ganó";
-        clientesList.push({
-          cliente: cli,
-          moneda: m,
-          apostado: cData.apostado,
-          ganado: cData.ganado,
-          saldo: saldoCasa,
-          estadoSaldo: estadoStr
-        });
-      }
-    }
-    
-    historialCuadresDB.unshift({
-      fecha: fechaCierre,
-      general: generalMonedas,
-      clientes: clientesList
-    });
-    
-    alert(`¡Cierre de caja para la fecha ${fechaCierre} guardado exitosamente!`);
+
+    facturasDB.unshift(nuevaFactura);
+    await guardarEnNube("facturas", nuevoId, nuevaFactura);
+
+    document.getElementById('facturaEjemplar').value = '';
+    document.getElementById('facturaMonto').value = '';
+    renderUsuarios();
+    renderFacturacion();
     renderCuadre();
-  }
+    alert(`¡Ticket ${nuevoId} emitido y guardado en la nube con éxito!`);
+}
+
+async function cerrarCaja() {
+    const fechaCierre = document.getElementById('cierreFechaInput').value;
+    if(!fechaCierre) {
+        alert("Seleccione una fecha para el cierre.");
+        return;
+    }
+    if(confirm(`¿Desea ejecutar y guardar el cierre de caja para la fecha ${fechaCierre}?`)) {
+        let generalMonedas = {
+            USD: { ingresos: 0, egresos: 0, neto: 0 },
+            USDT: { ingresos: 0, egresos: 0, neto: 0 },
+            BSF: { ingresos: 0, egresos: 0, neto: 0 }
+        };
+        let clientesMap = {};
+
+        facturasDB.forEach(f => {
+            if(f.estado !== 'Anulado') {
+                let m = f.moneda;
+                let cli = f.cliente;
+                if (!generalMonedas[m]) generalMonedas[m] = { ingresos: 0, egresos: 0, neto: 0 };
+                generalMonedas[m].ingresos += f.monto;
+
+                if (!clientesMap[cli]) clientesMap[cli] = {};
+                if (!clientesMap[cli][m]) clientesMap[cli][m] = { apostado: 0, ganado: 0 };
+                clientesMap[cli][m].apostado += f.monto;
+
+                if (f.estado === 'Ganado / Pagado') {
+                    let premio = f.premioPagado || 0;
+                    generalMonedas[m].egresos += premio;
+                    clientesMap[cli][m].ganado += premio;
+                }
+            }
+        });
+
+        for (let m in generalMonedas) {
+            generalMonedas[m].neto = generalMonedas[m].ingresos - generalMonedas[m].egresos;
+        }
+
+        let clientesList = [];
+        for (let cli in clientesMap) {
+            for (let m in clientesMap[cli]) {
+                let cData = clientesMap[cli][m];
+                let saldoCasa = cData.apostado - cData.ganado;
+                clientesList.push({
+                    cliente: cli,
+                    moneda: m,
+                    apostado: cData.apostado,
+                    ganado: cData.ganado,
+                    saldo: saldoCasa,
+                    estadoSaldo: saldoCasa >= 0 ? "La casa ganó" : "El cliente ganó"
+                });
+            }
+        }
+
+        let nuevoCuadre = {
+            id: "cuadre_" + fechaCierre.replace(/-/g, ""),
+            fecha: fechaCierre,
+            general: generalMonedas,
+            clientes: clientesList
+        };
+
+        let idxExistente = historialCuadresDB.findIndex(h => h.fecha === fechaCierre);
+        if(idxExistente >= 0) {
+            historialCuadresDB[idxExistente] = nuevoCuadre;
+        } else {
+            historialCuadresDB.unshift(nuevoCuadre);
+        }
+
+        await guardarEnNube("cuadres", nuevoCuadre.id, nuevoCuadre);
+
+        alert(`¡Cierre de caja para la fecha ${fechaCierre} guardado exitosamente en la nube!`);
+        renderCuadre();
+    }
 }
 
 function toggleAll(status) {
-  const checkboxes = document.querySelectorAll('#tracksGridContainer input[type="checkbox"]');
-  checkboxes.forEach(cb => cb.checked = status);
+    const checkboxes = document.querySelectorAll('#tracksGridContainer input[type="checkbox"]');
+    checkboxes.forEach(cb => cb.checked = status);
 }
 
 function switchTab(tabName) {
-  document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
-  
-  if(tabName === 'facturacion') {
-    document.getElementById('view-facturacion').classList.add('active');
-    if(document.getElementById('nav-facturacion')) document.getElementById('nav-facturacion').classList.add('active');
-    document.getElementById('headerTitleText').innerText = 'Emisión de Tickets y Taquilla';
-  } else if(tabName === 'tickets') {
-    document.getElementById('view-tickets').classList.add('active');
-    if(document.getElementById('nav-tickets')) document.getElementById('nav-tickets').classList.add('active');
-    document.getElementById('headerTitleText').innerText = 'Listado y Gestión de Tickets Emitidos';
-  } else if(tabName === 'saldos') {
-    document.getElementById('view-saldos').classList.add('active');
-    if(document.getElementById('nav-saldos')) document.getElementById('nav-saldos').classList.add('active');
-    document.getElementById('headerTitleText').innerText = 'Control de Saldos (Recargas y Retiros)';
-  } else if(tabName === 'cuadre') {
-    document.getElementById('view-cuadre').classList.add('active');
-    if(document.getElementById('nav-cuadre')) document.getElementById('nav-cuadre').classList.add('active');
-    document.getElementById('headerTitleText').innerText = 'Cuadre y Cierre de Caja General y por Fecha';
-  } else if(tabName === 'usuarios') {
-    document.getElementById('view-usuarios').classList.add('active');
-    if(document.getElementById('nav-usuarios')) document.getElementById('nav-usuarios').classList.add('active');
-    document.getElementById('headerTitleText').innerText = 'Gestión de Jugadores';
-  } else if(tabName === 'cajeros') {
-    document.getElementById('view-cajeros').classList.add('active');
-    if(document.getElementById('nav-cajeros')) document.getElementById('nav-cajeros').classList.add('active');
-    document.getElementById('headerTitleText').innerText = 'Gestión de Cajeros del Sistema';
-  } else if(tabName === 'configuracion') {
-    document.getElementById('view-config').classList.add('active');
-    if(document.getElementById('nav-config')) document.getElementById('nav-config').classList.add('active');
-    document.getElementById('headerTitleText').innerText = 'Configuración del Sistema y Transmisiones';
-  }
+    document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
+    if(tabName === 'facturacion') {
+        document.getElementById('view-facturacion').classList.add('active');
+        if(document.getElementById('nav-facturacion')) document.getElementById('nav-facturacion').classList.add('active');
+        document.getElementById('headerTitleText').innerText = 'Emisión de Tickets y Taquilla';
+    } else if(tabName === 'tickets') {
+        document.getElementById('view-tickets').classList.add('active');
+        if(document.getElementById('nav-tickets')) document.getElementById('nav-tickets').classList.add('active');
+        document.getElementById('headerTitleText').innerText = 'Listado y Gestión de Tickets Emitidos';
+    } else if(tabName === 'saldos') {
+        document.getElementById('view-saldos').classList.add('active');
+        if(document.getElementById('nav-saldos')) document.getElementById('nav-saldos').classList.add('active');
+        document.getElementById('headerTitleText').innerText = 'Control de Saldos (Recargas y Retiros)';
+    } else if(tabName === 'cuadre') {
+        document.getElementById('view-cuadre').classList.add('active');
+        if(document.getElementById('nav-cuadre')) document.getElementById('nav-cuadre').classList.add('active');
+        document.getElementById('headerTitleText').innerText = 'Cuadre y Cierre de Caja General y por Fecha';
+    } else if(tabName === 'usuarios') {
+        document.getElementById('view-usuarios').classList.add('active');
+        if(document.getElementById('nav-usuarios')) document.getElementById('nav-usuarios').classList.add('active');
+        document.getElementById('headerTitleText').innerText = 'Gestión de Jugadores';
+    } else if(tabName === 'cajeros') {
+        document.getElementById('view-cajeros').classList.add('active');
+        if(document.getElementById('nav-cajeros')) document.getElementById('nav-cajeros').classList.add('active');
+        document.getElementById('headerTitleText').innerText = 'Gestión de Cajeros del Sistema';
+    } else if(tabName === 'configuracion') {
+        document.getElementById('view-config').classList.add('active');
+        if(document.getElementById('nav-config')) document.getElementById('nav-config').classList.add('active');
+        document.getElementById('headerTitleText').innerText = 'Configuración del Sistema y Transmisiones';
+    }
 }
-</script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyAAB3hP9mkf471SaGdxrvlWKO5TYaYf46M",
-      authDomain: "grupoca-10621.firebaseapp.com",
-      projectId: "grupoca-10621",
-      storageBucket: "grupoca-10621.firebasestorage.app",
-      messagingSenderId: "274483838227",
-      appId: "1:274483838227:web:692ae7d453fd5da6df6ee6"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
 </script>
 </body>
 </html>
