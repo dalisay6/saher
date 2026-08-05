@@ -421,6 +421,8 @@ tr:hover td {
   }
 }
 </style>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
@@ -1716,6 +1718,19 @@ function switchTab(tabName) {
     document.getElementById('headerTitleText').innerText = 'Configuración del Sistema y Transmisiones';
   }
 }
+</script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAAB3hP9mkf471SaGdxrvlWKO5TYaYf46M",
+      authDomain: "grupoca-10621.firebaseapp.com",
+      projectId: "grupoca-10621",
+      storageBucket: "grupoca-10621.firebasestorage.app",
+      messagingSenderId: "274483838227",
+      appId: "1:274483838227:web:692ae7d453fd5da6df6ee6"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 </script>
 </body>
 </html>
