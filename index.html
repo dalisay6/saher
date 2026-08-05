@@ -1033,7 +1033,8 @@ function checkMobileMenu() {
 }
 
 function renderApp() {
-  cargarDatosDeLaNube();document.getElementById('headerUserBadge').innerHTML = `<i class="fa-solid fa-user-gear"></i> ${usuarioActual && usuarioActual.rol === 'admin' ? 'Administrador' : 'Cajero'}: ${usuarioActual ? usuarioActual.nombre : ''}`;
+  cargarDatosDeLaNube();
+    '};document.getElementById('headerUserBadge').innerHTML = `<i class="fa-solid fa-user-gear"></i> ${usuarioActual && usuarioActual.rol === 'admin' ? 'Administrador' : 'Cajero'}: ${usuarioActual ? usuarioActual.nombre : ''}`;
   renderTracks();
   renderUsuarios();
   renderCajeros();
@@ -1041,6 +1042,44 @@ function renderApp() {
   renderCuadre();
   renderFacturaTrackSelect();
   renderStreams();
+}
+
+  async function cargarDatosDeLaNube() {
+    if (typeof db === 'undefined') return;
+    
+    const colecciones = ["facturas", "clientes", "cajeros", "cuadres"];
+    
+    for (let col of colecciones) {
+        try {
+            const snapshot = await db.collection(col).get();
+            if (!snapshot.empty) {
+                let datosNube = [];
+                snapshot.forEach(doc => {
+                    datosNube.push(doc.data());
+                });
+                
+                if (col === "facturas" && typeof facturasDB !== 'undefined') {
+                    facturasDB = datosNube;
+                } else if (col === "clientes" && typeof clientesDB !== 'undefined') {
+                    clientesDB = datosNube;
+                } else if (col === "cajeros" && typeof cajerosDB !== 'undefined') {
+                    cajerosDB = datosNube;
+                } else if (col === "cuadres" && typeof cuadresDB !== 'undefined') {
+                    cuadresDB = datosNube;
+                }
+            }
+        } catch (e) {
+            console.log("Error cargando " + col + ":", e);
+        }
+    }
+    
+    if (typeof renderTracks === 'function') renderTracks();
+    if (typeof renderUsuarios === 'function') renderUsuarios();
+    if (typeof renderCajeros === 'function') renderCajeros();
+    if (typeof renderFacturacion === 'function') renderFacturacion();
+    if (typeof renderCuadre === 'function') renderCuadre();
+    
+    console.log("¡Datos sincronizados desde la nube correctamente!");
 }
 
 function renderTracks() {
