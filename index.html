@@ -1004,20 +1004,20 @@
         // MENU ACCESIBLE
         function construirMenu() {
             const nav = document.getElementById('navLinksContainer');
-            let html = `
-                <li><a href="#" id="nav-facturacion" class="active" onclick="switchTab('facturacion')"><i class="fa-solid fa-file-invoice-dollar"></i> Emitir Apuesta</a></li>
-                <li><a href="#" id="nav-tickets" onclick="switchTab('tickets')"><i class="fa-solid fa-list-check"></i> Listado de Tickets</a></li>
-                <li><a href="#" id="nav-saldos" onclick="switchTab('saldos')"><i class="fa-solid fa-wallet"></i> Control de Saldos</a></li>
-                <li><a href="#" id="nav-cuadre" onclick="switchTab('cuadre')"><i class="fa-solid fa-cash-register"></i> Cuadre de Caja</a></li>
-            `;
+          let html = `
+        <li><a href="#" id="nav-facturacion" class="active" onclick="switchTab('facturacion'); if(window.innerWidth<=768){document.getElementById('appsidebar').style.display='none';}"><i class="fa-solid fa-file-invoice"></i> Facturación</a></li>
+        <li><a href="#" id="nav-tickets" onclick="switchTab('tickets'); if(window.innerWidth<=768){document.getElementById('appsidebar').style.display='none';}"><i class="fa-solid fa-list-check"></i> Listado de Tickets</a></li>
+        <li><a href="#" id="nav-saldos" onclick="switchTab('saldos'); if(window.innerWidth<=768){document.getElementById('appsidebar').style.display='none';}"><i class="fa-solid fa-wallet"></i> Control de Saldos</a></li>
+        <li><a href="#" id="nav-cuadre" onclick="switchTab('cuadre'); if(window.innerWidth<=768){document.getElementById('appsidebar').style.display='none';}"><i class="fa-solid fa-cash-register"></i> Cuadre de Caja</a></li>
+    `;
 
-            if (usuarioActual && usuarioActual.rol === 'admin') {
-                html += `
-                    <li><a href="#" id="nav-usuarios" onclick="switchTab('usuarios')"><i class="fa-solid fa-users-gear"></i> Gestión de Jugadores</a></li>
-                    <li><a href="#" id="nav-cajeros" onclick="switchTab('cajeros')"><i class="fa-solid fa-user-shield"></i> Gestión de Cajeros</a></li>
-                    <li><a href="#" id="nav-config" onclick="switchTab('configuracion')"><i class="fa-solid fa-sliders"></i> Configuración</a></li>
-                `;
-            }
+    if (usuarioActual && usuarioActual.rol === 'admin') {
+        html += `
+            <li><a href="#" id="nav-usuarios" onclick="switchTab('usuarios'); if(window.innerWidth<=768){document.getElementById('appsidebar').style.display='none';}"><i class="fa-solid fa-users-gear"></i> Gestión de Jugadores</a></li>
+            <li><a href="#" id="nav-cajeros" onclick="switchTab('cajeros'); if(window.innerWidth<=768){document.getElementById('appsidebar').style.display='none';}"><i class="fa-solid fa-user-shield"></i> Gestión de Cajeros</a></li>
+            <li><a href="#" id="nav-config" onclick="switchTab('configuracion'); if(window.innerWidth<=768){document.getElementById('appsidebar').style.display='none';}"><i class="fa-solid fa-sliders"></i> Configuración</a></li>
+        `;
+    }            
             nav.innerHTML = html;
         }
 
@@ -1790,30 +1790,5 @@
   }
 }
 </style>
-    <script>
-  document.addEventListener('click', function(event) {
-    if (window.innerWidth <= 768) {
-      const sidebar = document.getElementById('appsidebar');
-      if (!sidebar) return;
-
-      // Si se hace clic en cualquier opción/enlace del menú o en el contenido principal mientras está abierto
-      const clickedLink = event.target.closest('#appsidebar a, .nav-links a, #navLinksContainer a');
-      const clickedInsideSidebar = sidebar.contains(event.target);
-      const hamburgerBtn = event.target.closest('.hamburger, .menu-btn, [onclick*="menu"], [onclick*="Toggle"]');
-
-      // Si toca un enlace del menú, o si toca fuera del menú lateral (y no es el botón de abrir)
-      if (clickedLink || (!clickedInsideSidebar && !hamburgerBtn && sidebar.style.display !== 'none' && sidebar.style.display !== '')) {
-        // Forzamos el cierre inmediato ocultándolo por completo
-        sidebar.style.cssText = 'display: none !important;';
-        
-        // Lo devolvemos a su estado original de CSS tras un instante para cuando vuelvas a abrirlo con el botón
-        setTimeout(() => {
-          sidebar.style.removeProperty('display');
-          sidebar.classList.remove('active', 'open', 'show');
-        }, 200);
-      }
-    }
-  });
-</script>
 </body>
 </html>
