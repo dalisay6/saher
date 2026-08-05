@@ -914,7 +914,19 @@ let facturasDB = [
   { id: "#TK-8901", cajero: "Cajero Principal", fecha: "04/08/2026 18:20", cliente: "Carlos Mendoza", hipodromo: "Gulfstream Park (C4 - #3)", monto: 150.00, moneda: "USD", estado: "En Curso" },
   { id: "#TK-8900", cajero: "Cajero Principal", fecha: "04/08/2026 17:45", cliente: "Alejandro Rivas", hipodromo: "Saratoga (C2-#7)", monto: 300.00, moneda: "USDT", estado: "Ganado / Pagado", premioPagado: 600.00 }
 ];
-
+// --- SISTEMA MAESTRO DE SINCRONIZACIÓN CON LA NUBE ---
+function sincronizarConNube(nombreColeccion, objetoDatos) {
+    db.collection(nombreColeccion).add({
+        ...objetoDatos,
+        ultimaActualizacion: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+        console.log(`[Cloud] ${nombreColeccion} sincronizado correctamente.`);
+    })
+    .catch((error) => {
+        console.error(`[Error Cloud] No se pudo guardar en ${nombreColeccion}: `, error);
+    });
+}
 let finanzas = {
   recargas: { USD: 1500.00, USDT: 600.00, BSF: 6200.00 },
   retiros: { USD: 0.00, USDT: 0.00, BSF: 0.00 },
