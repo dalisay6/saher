@@ -1861,7 +1861,7 @@
     } catch(e) { console.log(e); }
   });
 </script>
-    <script type="module">
+   <script type="module">
   // Importar Firebase SDKs necesarios
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
   import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
@@ -1881,13 +1881,41 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // Exponer herramientas de base de datos globalmente para tu sistema
+  // Exponer herramientas de base de datos globalmente
   window.db = db;
   window.firebaseAddDoc = addDoc;
   window.firebaseGetDocs = getDocs;
   window.firebaseCollection = collection;
-  
-  console.log("Firebase conectado exitosamente a la nube de Saher.");
+
+  // --- SISTEMA GLOBAL DE SINCRONIZACIÓN ---
+  window.guardarEnNube = async function(nombreColeccion, objetoDatos) {
+    try {
+      if (window.db && window.firebaseAddDoc && window.firebaseCollection) {
+        await window.firebaseAddDoc(window.firebaseCollection(window.db, nombreColeccion), objetoDatos);
+      }
+    } catch (e) {
+      console.error("Error al guardar en nube:", e);
+    }
+  };
+
+  window.cargarDesdeNube = async function(nombreColeccion, callbackPintar) {
+    try {
+      if (window.db && window.firebaseGetDocs && window.firebaseCollection) {
+        const querySnapshot = await window.firebaseGetDocs(window.firebaseCollection(window.db, nombreColeccion));
+        let datosCargados = [];
+        querySnapshot.forEach((doc) => {
+          datosCargados.push(doc.data());
+        });
+        if (datosCargados.length > 0 && typeof callbackPintar === 'function') {
+          callbackPintar(datosCargados);
+        }
+      }
+    } catch (e) {
+      console.error("Error al cargar de la nube:", e);
+    }
+  };
+
+  console.log("Firebase y herramientas globales conectadas exitosamente.");
 </script>
 </body>
 </html>
