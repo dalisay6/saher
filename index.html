@@ -1756,30 +1756,45 @@
             }
         }
     </script>
-    <style>
-/* Estilos responsivos para celulares y tablets */
+<style>
+/* Estilos responsivos y menú desplegable para celulares */
 @media screen and (max-width: 768px) {
-  body {
-    padding: 5px;
-    font-size: 14px;
-  }
-  .container, .main-content, .card, table {
+  /* Hacer que el contenido principal ocupe todo el ancho */
+  body, .main-content, .container {
     width: 100% !important;
-    max-width: 100% !important;
+    margin-left: 0 !important;
+    padding: 10px !important;
     box-sizing: border-box;
   }
+
+  /* Ocultar el menú lateral por defecto en móviles y ponerlo flotante */
+  aside, .sidebar, nav.menu {
+    position: fixed;
+    left: -280px; /* Escondido a la izquierda */
+    top: 0;
+    width: 260px;
+    height: 100%;
+    z-index: 1000;
+    transition: left 0.3s ease;
+    background-color: var(--bg-secondary, #121e2b);
+  }
+
+  /* Clase para mostrar el menú cuando se presione el botón */
+  aside.active, .sidebar.active, nav.menu.active {
+    left: 0;
+  }
+
+  /* Ajustar tablas y elementos */
   table {
     display: block;
     overflow-x: auto;
     white-space: nowrap;
+    width: 100% !important;
   }
-  h1 { font-size: 20px; }
-  h2 { font-size: 18px; }
-  h3 { font-size: 16px; }
-  button, input, select {
-    width: 100%;
-    margin-bottom: 8px;
-    padding: 10px;
+
+  input, select, button {
+    max-width: 100% !important;
+    box-sizing: border-box;
   }
 }
 </style>
