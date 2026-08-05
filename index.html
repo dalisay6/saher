@@ -1791,11 +1791,9 @@
 }
 </style>
     <script type="module">
-  // Importar Firebase SDKs necesarios
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
   import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 
-  // Configuración de tu proyecto en Firebase
   const firebaseConfig = {
     apiKey: "AIzaSyDnFR6D0-bqkKbVWDZykAmf3qiGp7H0mKc",
     authDomain: "sistemasaher.firebaseapp.com",
@@ -1806,67 +1804,28 @@
     measurementId: "G-LGZRENLCBE"
   };
 
-  // Inicializar Firebase
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // Exponer herramientas de base de datos globalmente
   window.db = db;
   window.firebaseAddDoc = addDoc;
   window.firebaseGetDocs = getDocs;
   window.firebaseCollection = collection;
+</script>
 
-  // --- SISTEMA GLOBAL DE SINCRONIZACIÓN ---
-  window.guardarEnNube = async function(nombreColeccion, objetoDatos) {
-    try {
-      if (window.db && window.firebaseAddDoc && window.firebaseCollection) {
-        await window.firebaseAddDoc(window.firebaseCollection(window.db, nombreColeccion), objetoDatos);
-      }
-    } catch (e) {
-      console.error("Error al guardar en nube:", e);
-    }
-  };
-
-  window.cargarDesdeNube = async function(nombreColeccion, callbackPintar) {
-    try {
-      if (window.db && window.firebaseGetDocs && window.firebaseCollection) {
-        const querySnapshot = await window.firebaseGetDocs(window.firebaseCollection(window.db, nombreColeccion));
-        let datosCargados = [];
-        querySnapshot.forEach((doc) => {
-          datosCargados.push(doc.data());
-        });
-        if (datosCargados.length > 0 && typeof callbackPintar === 'function') {
-          callbackPintar(datosCargados);
+<script>
+  // Script automático para cerrar el menú en celulares al hacer clic en cualquier opción
+  document.addEventListener('click', function(e) {
+    if (window.innerWidth <= 768) {
+      const target = e.target.closest('a, button');
+      if (target && (target.closest('nav') || target.closest('.sidebar') || target.closest('.menu'))) {
+        const sidebar = document.querySelector('nav, .sidebar, .menu');
+        if (sidebar && sidebar.classList.contains('active')) {
+          sidebar.classList.remove('active');
         }
       }
-    } catch (e) {
-      console.error("Error al cargar de la nube:", e);
     }
-  };
-
-  console.log("Firebase y herramientas globales conectadas exitosamente.");
-</script>
-    <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDnFR6D0-bqkKbVWDZykAmf3qiGp7H0mKc",
-    authDomain: "sistemasaher.firebaseapp.com",
-    projectId: "sistemasaher",
-    storageBucket: "sistemasaher.firebasestorage.app",
-    messagingSenderId: "794139958426",
-    appId: "1:794139958426:web:73d43f097a27331340d323",
-    measurementId: "G-LGZRENLCBE"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  window.db = db;
-  window.firebaseAddDoc = addDoc;
-  window.firebaseGetDocs = getDocs;
-  window.firebaseCollection = collection;
+  });
 </script>
 </body>
 </html>
