@@ -901,10 +901,6 @@ async function cargarDatosDeLaNube() {
             let tempCli = [];
             snapClientes.forEach(doc => tempCli.push(doc.data()));
             usuariosDB = tempCli;
-        } else {
-            for (let u of usuariosDB) {
-                await guardarEnNube("clientes", u.id, u);
-            }
         }
 
         const snapCajeros = await db.collection("cajeros").get();
@@ -912,10 +908,6 @@ async function cargarDatosDeLaNube() {
             let tempCaj = [];
             snapCajeros.forEach(doc => tempCaj.push(doc.data()));
             cajerosDB = tempCaj;
-        } else {
-            for (let c of cajerosDB) {
-                await guardarEnNube("cajeros", c.usuario, c);
-            }
         }
 
         const snapFacturas = await db.collection("facturas").orderBy("fechaCreacion", "desc").get();
@@ -937,21 +929,15 @@ async function cargarDatosDeLaNube() {
             let tempStr = [];
             snapStreams.forEach(doc => tempStr.push(doc.data()));
             streamsDB = tempStr;
-        } else {
-            for (let s of streamsDB) {
-                await guardarEnNube("streams", s.id, s);
-            }
         }
 
         const snapConfig = await db.collection("config").doc("parrilla").get();
         if (snapConfig.exists && snapConfig.data().hipodromosActivos) {
             hipodromosActivos = snapConfig.data().hipodromosActivos;
-        } else {
-            await guardarEnNube("config", "parrilla", { hipodromosActivos });
         }
 
     } catch (e) {
-        console.error("Error sincronizando con Firestore:", e);
+        console.warn("Aviso de sincronización offline o primera carga con Firestore:", e);
     }
     
     renderAppCompleta();
