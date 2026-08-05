@@ -1033,15 +1033,15 @@ function checkMobileMenu() {
 }
 
 function renderApp() {
-  cargarDatosDeLaNube();
-    '};document.getElementById('headerUserBadge').innerHTML = `<i class="fa-solid fa-user-gear"></i> ${usuarioActual && usuarioActual.rol === 'admin' ? 'Administrador' : 'Cajero'}: ${usuarioActual ? usuarioActual.nombre : ''}`;
-  renderTracks();
-  renderUsuarios();
-  renderCajeros();
-  renderFacturacion();
-  renderCuadre();
-  renderFacturaTrackSelect();
-  renderStreams();
+ cargarDatosDeLaNube();
+    document.getElementById('headerUserBadge').innerHTML = `<i class="fa-solid fa-user-gear"></i> ${usuarioActual && usuarioActual.nombre ? usuarioActual.nombre : ''}`;
+    renderTracks();
+    renderUsuarios();
+    renderCajeros();
+    renderFacturacion();
+    renderCuadre();
+    renderFacturaTrackSelect();
+    renderStreams();
 }
   async function cargarDatosDeLaNube() {
     if (typeof db === 'undefined') return;
