@@ -1722,6 +1722,7 @@
         }
 
         function switchTab(tabName) {
+           if (window.innerWidth <= 768) { document.getElementById('appsidebar').style.display = 'none'; }
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active'));
 
@@ -1790,42 +1791,5 @@
   }
 }
 </style>
-    <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDnFR6D0-bqkKbVWDZykAmf3qiGp7H0mKc",
-    authDomain: "sistemasaher.firebaseapp.com",
-    projectId: "sistemasaher",
-    storageBucket: "sistemasaher.firebasestorage.app",
-    messagingSenderId: "794139958426",
-    appId: "1:794139958426:web:73d43f097a27331340d323",
-    measurementId: "G-LGZRENLCBE"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  window.db = db;
-  window.firebaseAddDoc = addDoc;
-  window.firebaseGetDocs = getDocs;
-  window.firebaseCollection = collection;
-</script>
-
-<script>
-  // Script automático para cerrar el menú en celulares al hacer clic en cualquier opción
-  document.addEventListener('click', function(e) {
-    if (window.innerWidth <= 768) {
-      const target = e.target.closest('a, button');
-      if (target && (target.closest('nav') || target.closest('.sidebar') || target.closest('.menu'))) {
-        const sidebar = document.querySelector('nav, .sidebar, .menu');
-        if (sidebar && sidebar.classList.contains('active')) {
-          sidebar.classList.remove('active');
-        }
-      }
-    }
-  });
-</script>
 </body>
 </html>
