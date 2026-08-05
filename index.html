@@ -1846,5 +1846,27 @@
 
   console.log("Firebase y herramientas globales conectadas exitosamente.");
 </script>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDnFR6D0-bqkKbVWDZykAmf3qiGp7H0mKc",
+    authDomain: "sistemasaher.firebaseapp.com",
+    projectId: "sistemasaher",
+    storageBucket: "sistemasaher.firebasestorage.app",
+    messagingSenderId: "794139958426",
+    appId: "1:794139958426:web:73d43f097a27331340d323",
+    measurementId: "G-LGZRENLCBE"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.db = db;
+  window.firebaseAddDoc = addDoc;
+  window.firebaseGetDocs = getDocs;
+  window.firebaseCollection = collection;
+</script>
 </body>
 </html>
