@@ -1033,7 +1033,7 @@ function checkMobileMenu() {
 }
 
 function renderApp() {
-  document.getElementById('headerUserBadge').innerHTML = `<i class="fa-solid fa-user-gear"></i> ${usuarioActual && usuarioActual.rol === 'admin' ? 'Administrador' : 'Cajero'}: ${usuarioActual ? usuarioActual.nombre : ''}`;
+  cargarDatosDeLaNube();document.getElementById('headerUserBadge').innerHTML = `<i class="fa-solid fa-user-gear"></i> ${usuarioActual && usuarioActual.rol === 'admin' ? 'Administrador' : 'Cajero'}: ${usuarioActual ? usuarioActual.nombre : ''}`;
   renderTracks();
   renderUsuarios();
   renderCajeros();
