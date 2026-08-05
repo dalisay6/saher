@@ -1618,7 +1618,7 @@ function generarFactura() {
     moneda: moneda,
     estado: "En Curso",
     premioPagado: 0
-  });
+  });sincronizarConNube("facturas", facturasDB[0]);
   
   document.getElementById('facturaEjemplar').value = '';
   document.getElementById('facturaMonto').value = '';
