@@ -1791,18 +1791,26 @@
 }
 </style>
     <script>
-  // Método definitivo para cerrar el menú lateral en móviles al hacer clic en cualquier opción
   document.addEventListener('click', function(event) {
     if (window.innerWidth <= 768) {
       const sidebar = document.getElementById('appsidebar');
-      // Si el menú está visible y haces clic en un enlace de navegación o dentro del menú
-      if (sidebar && (event.target.closest('#appsidebar a') || event.target.closest('.nav-links a'))) {
+      if (!sidebar) return;
+
+      // Si se hace clic en cualquier opción/enlace del menú o en el contenido principal mientras está abierto
+      const clickedLink = event.target.closest('#appsidebar a, .nav-links a, #navLinksContainer a');
+      const clickedInsideSidebar = sidebar.contains(event.target);
+      const hamburgerBtn = event.target.closest('.hamburger, .menu-btn, [onclick*="menu"], [onclick*="Toggle"]');
+
+      // Si toca un enlace del menú, o si toca fuera del menú lateral (y no es el botón de abrir)
+      if (clickedLink || (!clickedInsideSidebar && !hamburgerBtn && sidebar.style.display !== 'none' && sidebar.style.display !== '')) {
+        // Forzamos el cierre inmediato ocultándolo por completo
         sidebar.style.cssText = 'display: none !important;';
-        // Limpiamos el estilo forzado después de un momento para que vuelva a funcionar normal al abrirlo con el botón
+        
+        // Lo devolvemos a su estado original de CSS tras un instante para cuando vuelvas a abrirlo con el botón
         setTimeout(() => {
           sidebar.style.removeProperty('display');
-          sidebar.classList.remove('active'); // O la clase que use tu menú para abrirse
-        }, 300);
+          sidebar.classList.remove('active', 'open', 'show');
+        }, 200);
       }
     }
   });
