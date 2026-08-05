@@ -1832,5 +1832,34 @@
   }
 }
 </style>
+    <script>
+  // Script de persistencia automática para respaldar formularios y tablas en el navegador
+  window.addEventListener('beforeunload', function() {
+    try {
+      // Guarda los inputs y textos actuales para que no se pierdan al recargar
+      let inputsData = {};
+      document.querySelectorAll('input, select').forEach((el, index) => {
+        if(el.id || el.name) {
+          inputsData[el.id || el.name] = el.value;
+        }
+      });
+      localStorage.setItem('saher_backup_inputs', JSON.stringify(inputsData));
+    } catch(e) { console.log(e); }
+  });
+
+  // Restaurar datos al cargar la página
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      let saved = localStorage.getItem('saher_backup_inputs');
+      if(saved) {
+        let inputsData = JSON.parse(saved);
+        Object.keys(inputsData).forEach(key => {
+          let el = document.getElementById(key) || document.querySelector(`[name="${key}"]`);
+          if(el) el.value = inputsData[key];
+        });
+      }
+    } catch(e) { console.log(e); }
+  });
+</script>
 </body>
 </html>
