@@ -1002,7 +1002,21 @@ function checkMobileMenu() {
         document.getElementById('appSidebar').style.display = 'none';
     }
 }
+function iniciarSesion(event) {
+    event.preventDefault();
+    let usuarioInput = document.getElementById("loginUser").value;
+    let passwordInput = document.getElementById("loginPass").value;
 
+    if (usuarioInput === "admin" && passwordInput === "admin123") {
+        document.getElementById("loginOverlay").style.display = "none";
+        renderAppCompleta(); 
+    } else {
+        alert("Usuario o contraseña incorrectos");
+    }
+}
+
+function renderAppCompleta() {
+    ...
 function renderAppCompleta() {
     let nombreUsuario = (usuarioActual && usuarioActual.nombre) ? usuarioActual.nombre : "Invitado";
     document.getElementById('headerUserBadge').innerHTML = `<i class="fa-solid fa-user-gear"></i> Rol: ${nombreUsuario}`;
