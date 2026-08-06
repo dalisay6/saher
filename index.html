@@ -1004,7 +1004,8 @@ function checkMobileMenu() {
 }
 
 function renderAppCompleta() {
-    document.getElementById('headerUserBadge').innerHTML = `<i class="fa solid fa-user-gear"></i> ${usuarioActual && usuarioActual.nombre ? usuarioActual.nombre : 'Usuario'}`;
+    let nombreUsuario = (usuarioActual && usuarioActual.nombre) ? usuarioActual.nombre : "Invitado";
+    document.getElementById('headerUserBadge').innerHTML = `<i class="fa-solid fa-user-gear"></i> Rol: ${nombreUsuario}`;
     renderTracks();
     renderUsuarios();
     renderCajeros();
@@ -1013,7 +1014,6 @@ function renderAppCompleta() {
     renderFacturaTrackSelect();
     renderStreams();
 }
-
 function renderTracks() {
     const container = document.getElementById('tracksGridContainer');
     if(!container) return;
