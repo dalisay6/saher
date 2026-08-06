@@ -1024,10 +1024,22 @@ function renderTracks() {
             <label class="track-checkbox-card">
                 <span>${track}</span>
                 <input type="checkbox" ${isChecked} value="${track}">
-            </label>
-        `;
     });
     container.innerHTML = html;
+}
+
+function renderFacturaTrackSelect() {
+    const select = document.getElementById('facturaTrackSelect');
+    if (!select) return;
+    let html = '';
+    if (hipodromosActivos.length === 0) {
+        html = '<option value="">-- No hay hipódromos activos --</option>';
+    } else {
+        hipodromosActivos.forEach(track => {
+            html += `<option value="${track}">${track}</option>`;
+        });
+    }
+    select.innerHTML = html;
 }
 
 function renderFacturaTrackSelect() {
