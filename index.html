@@ -345,6 +345,18 @@ header { padding: 15px 30px; }
 <button class="btn btn-gold" onclick="cerrarCaja()"><i class="fa-solid fa-file-shield"></i> Ejecutar Cierre</button>
 </div>
 </div>
+  <div class="form-container" style="margin-top: 20px; background: #1a1a2e; padding: 20px; border-radius: 8px; border: 1px solid #333;">
+    <h3 style="color: var(--accent-gold); margin-bottom: 10px;"><i class="fa-solid fa-horse-head"></i> Gestión de Hipódromos</h3>
+    
+    <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
+        <input type="text" id="nombreHipodromoInput" placeholder="Nombre del Hipódromo" class="filter-control" style="flex: 1; min-width: 200px; padding: 8px;">
+        <button class="btn btn-gold" onclick="agregarHipodromo()"><i class="fa-solid fa-plus"></i> Agregar</button>
+    </div>
+
+    <div id="listaHipodromosContainer" style="display: flex; flex-direction: column; gap: 8px;">
+        <span style="color: var(--text-muted); font-size: 0.9rem;">No hay hipódromos registrados.</span>
+    </div>
+</div>
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
 <h3 style="color: var(--accent-gold); font-size: 1rem;"><i class="fa-solid fa-box-archive"></i> Historial Archivados</h3>
 <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
@@ -544,6 +556,91 @@ const inputCierre = document.getElementById('cierreFechaInput');
 if(inputCierre) inputCierre.value = nuevaFecha;
 window.cargarDatosPorFechaNube(nuevaFecha);
 }
+  let hipodromosDB = [];
+
+function agregarHipodromo() {
+    const input = document.getElementById('nombreHipodromoInput');
+    const nombre = input.value.trim();
+    
+    if (!nombre) {
+        alert("Escribe el nombre del hipódromo.");
+        return;
+    }
+
+    const nuevoHipo = {
+        id: 'hipo_' + Date.now(),
+        nombre: nombre,
+        disponible: true
+    };
+
+    if (typeof firebase !== 'undefined' && firebase.database) {
+        firebase.database().ref('hipodromos/' + nuevoHipo.id).set(nuevoHipo)
+            .then(() => {
+                input.value = '';
+                alert("Hipódromo agregado con éxito.");
+            })
+            .catch(error => console.error("Error al guardar hipódromo:", error));
+    } else {
+        hipodromosDB.push(nuevoHipo);
+        renderizarHipodromos();
+        input.value = '';
+    }
+}
+
+function toggleDisponibilidad(id) {
+    const hipo = hipodromosDB.find(h => h.id === id);
+    if (hipo) {
+        hipo.disponible = !hipo.disponible;
+        if (typeof firebase !== 'undefined' && firebase.database) {
+            firebase.database().ref('hipodromos/' + id).update({ disponible: hipo.disponible });
+        }
+        renderizarHipodromos();
+    }
+}
+
+function renderizarHipodromos() {
+    const container = document.getElementById('listaHipodromosContainer');
+    if (!container) return;
+
+    if (hipodromosDB.length === 0) {
+        container.innerHTML = '<span style="color: var(--text-muted); font-size: 0.9rem;">No hay hipódromos registrados.</span>';
+        return;
+    }
+
+    container.innerHTML = '';
+    hipodromosDB.forEach(h => {
+        const item = document.createElement('div');
+        item.style.cssText = "display: flex; justify-content: space-between; align-items: center; background: #16213e; padding: 10px; border-radius: 6px;";
+        
+        item.innerHTML = `
+            <span style="color: #fff; font-weight: 500;">${h.nombre}</span>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <span style="font-size: 0.8rem; color: ${h.disponible ? '#4ecc6d' : '#ff5c5c'};">
+                    ${h.disponible ? 'Disponible' : 'No disponible'}
+                </span>
+                <button class="btn" style="background: ${h.disponible ? '#e74c3c' : '#27ae60'}; color: #fff; padding: 4px 10px; font-size: 0.8rem;" onclick="toggleDisponibilidad('${h.id}')">
+                    ${h.disponible ? 'Desactivar' : 'Activar'}
+                </button>
+            </div>
+        `;
+        container.appendChild(item);
+    });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    if (typeof firebase !== 'undefined' && firebase.database) {
+        firebase.database().ref('hipodromos').on('value', (snapshot) => {
+            const data = snapshot.val();
+            hipodromosDB = [];
+            if (data) {
+                Object.keys(data).forEach(key => {
+                    hipodromosDB.push(data[key]);
+                });
+            }
+            renderizarHipodromos();
+        });
+    }
+});
 </script>
 <script>
 function toggleMobileSidebar() {
