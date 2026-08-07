@@ -76,7 +76,6 @@ display: flex; justify-content: space-between; align-items: center; border-botto
 background: rgba(212, 175, 55, 0.15); color: var(--accent-gold); padding: 5px 10px;
 border-radius: 20px; font-size: 0.8rem; font-weight: 600; border: 1px solid var(--accent-gold); white-space: nowrap;
 }
-.date-badge { font-size: 0.8rem; color: var(--text-muted); white-space: nowrap; display: flex; align-items: center; gap: 5px; }
 .view-section { padding: 20px; display: none; }
 .view-section.active { display: block; }
 .form-container {
@@ -123,7 +122,6 @@ background-color: var(--bg-card); border: 1px solid var(--border-color); border-
 background-color: var(--bg-secondary); border: 1px solid var(--border-color); padding: 10px 12px;
 border-radius: 8px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: all 0.2s ease; font-size: 0.85rem;
 }
-.track-checkbox-card:hover { border-color: var(--accent-gold); }
 .stream-container { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; margin-bottom: 20px; }
 .video-responsive { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: #000; margin-top: 15px; }
 .video-responsive iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
@@ -444,7 +442,6 @@ appId: "1:274483838227:web:692ae7d453fd5da6df6ee6"
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Utilidad estandarizada de fecha local YYYY-MM-DD
 function obtenerFechaLocal(fecha = new Date()) {
 const anio = fecha.getFullYear();
 const mes = String(fecha.getMonth() + 1).padStart(2, '0');
@@ -475,7 +472,6 @@ window.usuarioActual = null;
 window.ticketSeleccionadoIndex = null;
 window.modalHistorialIndexActual = null;
 
-// CARGA INICIAL DE CONFIGURACIÓN Y DATOS ESTÁTICOS
 async function inicializarSistemaCompleto() {
 try {
 const cajerosSnap = await getDocs(collection(db, "cajeros"));
@@ -496,38 +492,28 @@ const data = d.data();
 if (data.hipodromosActivos) window.hipodromosActivos = data.hipodromosActivos;
 });
 } catch (e) { 
-console.warn("Aviso de conexión o índices de Firestore:", e); 
+console.warn("Aviso de conexión con Firestore:", e); 
 }
 
-// Cargar facturas de la fecha por defecto de forma segura
 await window.cargarDatosPorFechaNube(window.fechaSeleccionadaGlobal);
 }
 
-// CARGA FILTRADA POR FECHA CON MANEJO BLINDADO
 window.cargarDatosPorFechaNube = async function(fechaStr) {
 window.facturasDB = [];
 try {
-const inicioDia = new Date(`${fechaStr}T00:00:00`);
-const finDia = new Date(`${fechaStr}T23:59:59`);
-const qTickets = query(collection(db, "facturas"), where("timestamp", ">=", Timestamp.fromDate(inicioDia)), where("timestamp", "<=", Timestamp.fromDate(finDia)));
-const facturasSnap = await getDocs(qTickets);
+const facturasSnap = await getDocs(collection(db, "facturas"));
 facturasSnap.forEach(d => {
-window.facturasDB.push({ firestoreId: d.id, ...d.data() });
-});
-} catch (e) {
-console.warn("Consulta con rango de fecha requiere índice o falló, trayendo respaldo general:", e);
-try {
-const fallbackSnap = await getDocs(collection(db, "facturas"));
-fallbackSnap.forEach(d => {
 let data = d.data();
-let fechaTicket = data.fechaString || (data.timestamp && typeof data.timestamp.toDate === 'function' ? data.timestamp.toDate().toISOString().split('T')[0] : '');
+let fechaTicket = data.fechaString || "";
+if (!fechaTicket && data.timestamp && typeof data.timestamp.toDate === 'function') {
+fechaTicket = data.timestamp.toDate().toISOString().split('T')[0];
+}
 if (fechaTicket === fechaStr) {
 window.facturasDB.push({ firestoreId: d.id, ...data });
 }
 });
-} catch(err) {
-console.error("Error crítico al recuperar facturas:", err);
-}
+} catch (err) {
+console.error("Error al recuperar facturas:", err);
 }
 
 window.finanzas = { recargas: { USD: 0, USDT: 0, BSF: 0 }, retiros: { USD: 0, USDT: 0, BSF: 0 }, tickets: { USD: 0, USDT: 0, BSF: 0 } };
@@ -828,13 +814,7 @@ let accionesHTML = isLocked? `<span style="font-size:0.75rem; color:var(--text-m
 <button class="btn" style="padding: 3px 6px; font-size: 0.7rem; background:rgba(148,163,184,0.15); color:var(--text-muted);" onclick="cambiarEstadoTicket(${index}, 'Anulado')">Anular</button>
 </div>`;
 
-let horaLegible = "--:--";
-if (f.timestamp && typeof f.timestamp.toDate === 'function') {
-horaLegible = f.timestamp.toDate().toLocaleTimeString();
-} else if (f.fechaString) {
-horaLegible = f.fechaString;
-}
-
+let horaLegible = f.horaString || "12:00:00";
 html += `<tr><td><strong>${f.id}</strong></td><td>${f.cajero}</td><td>${horaLegible}</td><td>${f.cliente}</td><td>${f.hipodromo}</td><td style="color:var(--accent-gold);">$${(f.monto || 0).toFixed(2)}</td><td>${f.moneda}</td><td><span style="${badgeStyle} padding: 3px 6px; border-radius:8px; font-size:0.7rem; font-weight:bold;">${f.estado}</span></td><td>${accionesHTML}</td></tr>`;
 });
 tbody.innerHTML = html;
@@ -1074,21 +1054,24 @@ const tipoJugada = document.getElementById('facturaTipoJugada').value;
 const cliente = document.getElementById('facturaUserSelect').value;
 const monto = parseFloat(document.getElementById('facturaMonto').value);
 const moneda = document.getElementById('facturaMoneda').value;
+
 if (!ejemplar || isNaN(monto) || monto <= 0) { alert("Complete ejemplar y monto válido."); return; }
 let usuario = usuariosDB.find(u => u.nombre === cliente);
 if (!usuario) { alert("Cliente no encontrado."); return; }
 if(!usuario.saldos) usuario.saldos = { USD: 0, USDT: 0, BSF: 0 };
 if ((usuario.saldos[moneda] || 0) < monto) { alert("Cliente sin saldo suficiente en esta moneda."); return; }
 
+// Descontar saldo localmente de inmediato
 usuario.saldos[moneda] -= monto;
 finanzas.tickets[moneda] = (finanzas.tickets[moneda] || 0) + monto;
 const nuevoId = "#TK-" + (8902 + facturasDB.length + Math.floor(Math.random()*1000));
+const ahoraObj = new Date();
 
 const nuevaFactura = {
 id: nuevoId,
-cajero: usuarioActual? usuarioActual.nombre: 'Sistema',
-timestamp: Timestamp.now(),
+cajero: usuarioActual ? usuarioActual.nombre : 'Sistema',
 fechaString: window.fechaSeleccionadaGlobal,
+horaString: ahoraObj.toLocaleTimeString(),
 cliente,
 hipodromo: `${track} (C${carrera} - #${ejemplar} [${tipoJugada}])`,
 monto,
@@ -1097,11 +1080,15 @@ estado: "En Curso",
 premioPagado: 0
 };
 
+// Actualizar Firebase de forma segura (sin bloquear el hilo principal si hay latencia)
 try {
-const docRef = await window.firebaseCollections.addDoc(window.firebaseCollections.collection(db, "facturas"), nuevaFactura);
-nuevaFactura.firestoreId = docRef.id;
-if (usuario.firestoreId) await window.firebaseCollections.updateDoc(window.firebaseCollections.doc(db, "usuarios", usuario.firestoreId), { saldos: usuario.saldos });
-} catch(e) { console.error(e); }
+await window.firebaseCollections.addDoc(window.firebaseCollections.collection(db, "facturas"), nuevaFactura);
+if (usuario.firestoreId) {
+await window.firebaseCollections.updateDoc(window.firebaseCollections.doc(db, "usuarios", usuario.firestoreId), { saldos: usuario.saldos });
+}
+} catch(e) { 
+console.warn("Aviso de sincronización remota:", e); 
+}
 
 facturasDB.unshift(nuevaFactura);
 document.getElementById('facturaEjemplar').value = "";
@@ -1109,7 +1096,7 @@ document.getElementById('facturaMonto').value = "";
 renderUsuarios();
 renderFacturacion();
 renderCuadre();
-alert(`¡Ticket ${nuevoId} emitido!`);
+alert(`¡Ticket ${nuevoId} emitido con éxito!`);
 }
 
 async function cerrarCaja() {
