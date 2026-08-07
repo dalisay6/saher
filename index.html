@@ -476,7 +476,7 @@ window.ticketSeleccionadoIndex = null;
 window.modalHistorialIndexActual = null;
 
 // CARGA INICIAL DE CONFIGURACIÓN Y DATOS ESTÁTICOS
-async function cargarDatosEstaticosNube() {
+async function inicializarSistemaCompleto() {
 try {
 const cajerosSnap = await getDocs(collection(db, "cajeros"));
 if (!cajerosSnap.empty) window.cajerosDB = cajerosSnap.docs.map(d => ({ firestoreId: d.id, ...d.data() }));
@@ -495,20 +495,40 @@ configSnap.forEach(d => {
 const data = d.data();
 if (data.hipodromosActivos) window.hipodromosActivos = data.hipodromosActivos;
 });
-} catch (e) { console.error("Error al sincronizar datos estáticos:", e); }
+} catch (e) { 
+console.warn("Aviso de conexión o índices de Firestore:", e); 
 }
 
-// CARGA FILTRADA POR FECHA (RANGO DE DÍA EN FIRESTORE)
+// Cargar facturas de la fecha por defecto de forma segura
+await window.cargarDatosPorFechaNube(window.fechaSeleccionadaGlobal);
+}
+
+// CARGA FILTRADA POR FECHA CON MANEJO BLINDADO
 window.cargarDatosPorFechaNube = async function(fechaStr) {
+window.facturasDB = [];
+try {
 const inicioDia = new Date(`${fechaStr}T00:00:00`);
 const finDia = new Date(`${fechaStr}T23:59:59`);
-try {
 const qTickets = query(collection(db, "facturas"), where("timestamp", ">=", Timestamp.fromDate(inicioDia)), where("timestamp", "<=", Timestamp.fromDate(finDia)));
 const facturasSnap = await getDocs(qTickets);
-window.facturasDB = [];
 facturasSnap.forEach(d => {
 window.facturasDB.push({ firestoreId: d.id, ...d.data() });
 });
+} catch (e) {
+console.warn("Consulta con rango de fecha requiere índice o falló, trayendo respaldo general:", e);
+try {
+const fallbackSnap = await getDocs(collection(db, "facturas"));
+fallbackSnap.forEach(d => {
+let data = d.data();
+let fechaTicket = data.fechaString || (data.timestamp && typeof data.timestamp.toDate === 'function' ? data.timestamp.toDate().toISOString().split('T')[0] : '');
+if (fechaTicket === fechaStr) {
+window.facturasDB.push({ firestoreId: d.id, ...data });
+}
+});
+} catch(err) {
+console.error("Error crítico al recuperar facturas:", err);
+}
+}
 
 window.finanzas = { recargas: { USD: 0, USDT: 0, BSF: 0 }, retiros: { USD: 0, USDT: 0, BSF: 0 }, tickets: { USD: 0, USDT: 0, BSF: 0 } };
 window.facturasDB.forEach(f => {
@@ -517,7 +537,6 @@ if(!window.finanzas.tickets[f.moneda]) window.finanzas.tickets[f.moneda] = 0;
 window.finanzas.tickets[f.moneda] += f.monto;
 }
 });
-} catch (e) { console.error("Error al cargar datos filtrados por fecha:", e); }
 
 if (typeof renderApp === 'function') renderApp();
 }
@@ -525,12 +544,11 @@ if (typeof renderApp === 'function') renderApp();
 window.db = db;
 window.firebaseCollections = { collection, getDocs, setDoc, doc, addDoc, updateDoc, deleteDoc };
 
-cargarDatosEstaticosNube().then(() => {
+inicializarSistemaCompleto().then(() => {
 const inputGlobal = document.getElementById('filtroFechaGlobal');
 if(inputGlobal) inputGlobal.value = window.fechaSeleccionadaGlobal;
 const inputCierre = document.getElementById('cierreFechaInput');
 if(inputCierre) inputCierre.value = window.fechaSeleccionadaGlobal;
-window.cargarDatosPorFechaNube(window.fechaSeleccionadaGlobal);
 });
 
 window.cambiarFechaGlobal = function(nuevaFecha) {
@@ -770,7 +788,8 @@ const tbody = document.getElementById('saldosTableBody');
 if (!tbody) return;
 let html = "";
 usuariosDB.forEach((u) => {
-html += `<tr><td><strong>${u.nombre}</strong></td><td>${u.alias}</td><td style="color:var(--success);">$${u.saldos.USD.toFixed(2)}</td><td style="color:var(--success);">₮${u.saldos.USDT.toFixed(2)}</td><td style="color:var(--success);">Bs. ${u.saldos.BSF.toFixed(2)}</td></tr>`;
+if(!u.saldos) u.saldos = { USD: 0, USDT: 0, BSF: 0 };
+html += `<tr><td><strong>${u.nombre}</strong></td><td>${u.alias}</td><td style="color:var(--success);">$${(u.saldos.USD || 0).toFixed(2)}</td><td style="color:var(--success);">₮${(u.saldos.USDT || 0).toFixed(2)}</td><td style="color:var(--success);">Bs. ${(u.saldos.BSF || 0).toFixed(2)}</td></tr>`;
 });
 tbody.innerHTML = html;
 }
@@ -798,10 +817,10 @@ if (!tbody) return;
 let html = "";
 facturasDB.forEach((f, index) => {
 let badgeStyle = 'background:rgba(245,158,11,0.15); color:var(--warning);';
-if (f.estado.includes('Ganado')) badgeStyle = 'background:rgba(16,185,129,0.15); color:var(--success);';
-if (f.estado.includes('Perdedor')) badgeStyle = 'background:rgba(239,68,68,0.15); color:var(--danger);';
-if (f.estado.includes('Anulado')) badgeStyle = 'background:rgba(148,163,184,0.15); color:var(--text-muted);';
-let isLocked = f.estado.includes('Ganado') || f.estado === 'Perdedor' || f.estado === 'Anulado';
+if (f.estado && f.estado.includes('Ganado')) badgeStyle = 'background:rgba(16,185,129,0.15); color:var(--success);';
+if (f.estado && f.estado.includes('Perdedor')) badgeStyle = 'background:rgba(239,68,68,0.15); color:var(--danger);';
+if (f.estado && f.estado.includes('Anulado')) badgeStyle = 'background:rgba(148,163,184,0.15); color:var(--text-muted);';
+let isLocked = f.estado && (f.estado.includes('Ganado') || f.estado === 'Perdedor' || f.estado === 'Anulado');
 let accionesHTML = isLocked? `<span style="font-size:0.75rem; color:var(--text-muted);"><i class="fa-solid fa-lock"></i> Bloqueado</span>` : `
 <div style="display: flex; gap: 4px;">
 <button class="btn btn-success" style="padding: 3px 6px; font-size: 0.7rem;" onclick="abrirModalPremiar(${index})">Premio</button>
@@ -812,11 +831,11 @@ let accionesHTML = isLocked? `<span style="font-size:0.75rem; color:var(--text-m
 let horaLegible = "--:--";
 if (f.timestamp && typeof f.timestamp.toDate === 'function') {
 horaLegible = f.timestamp.toDate().toLocaleTimeString();
-} else if (f.fecha) {
-horaLegible = f.fecha;
+} else if (f.fechaString) {
+horaLegible = f.fechaString;
 }
 
-html += `<tr><td><strong>${f.id}</strong></td><td>${f.cajero}</td><td>${horaLegible}</td><td>${f.cliente}</td><td>${f.hipodromo}</td><td style="color:var(--accent-gold);">$${f.monto.toFixed(2)}</td><td>${f.moneda}</td><td><span style="${badgeStyle} padding: 3px 6px; border-radius:8px; font-size:0.7rem; font-weight:bold;">${f.estado}</span></td><td>${accionesHTML}</td></tr>`;
+html += `<tr><td><strong>${f.id}</strong></td><td>${f.cajero}</td><td>${horaLegible}</td><td>${f.cliente}</td><td>${f.hipodromo}</td><td style="color:var(--accent-gold);">$${(f.monto || 0).toFixed(2)}</td><td>${f.moneda}</td><td><span style="${badgeStyle} padding: 3px 6px; border-radius:8px; font-size:0.7rem; font-weight:bold;">${f.estado}</span></td><td>${accionesHTML}</td></tr>`;
 });
 tbody.innerHTML = html;
 }
@@ -843,7 +862,8 @@ ticket.estado = 'Ganado / Pagado';
 ticket.premioPagado = montoPremio;
 let usuario = usuariosDB.find(u => u.nombre === ticket.cliente);
 if (usuario) {
-usuario.saldos[ticket.moneda] += montoPremio;
+if(!usuario.saldos) usuario.saldos = { USD: 0, USDT: 0, BSF: 0 };
+usuario.saldos[ticket.moneda] = (usuario.saldos[ticket.moneda] || 0) + montoPremio;
 if (usuario.firestoreId) await window.firebaseCollections.updateDoc(window.firebaseCollections.doc(db, "usuarios", usuario.firestoreId), { saldos: usuario.saldos });
 }
 if (ticket.firestoreId) await window.firebaseCollections.updateDoc(window.firebaseCollections.doc(db, "facturas", ticket.firestoreId), { estado: ticket.estado, premioPagado: ticket.premioPagado });
@@ -862,7 +882,8 @@ else if (nuevoEstado === 'Anulado') {
 ticket.premioPagado = 0;
 let usuario = usuariosDB.find(u => u.nombre === ticket.cliente);
 if (usuario) {
-usuario.saldos[ticket.moneda] += ticket.monto;
+if(!usuario.saldos) usuario.saldos = { USD: 0, USDT: 0, BSF: 0 };
+usuario.saldos[ticket.moneda] = (usuario.saldos[ticket.moneda] || 0) + ticket.monto;
 if (usuario.firestoreId) await window.firebaseCollections.updateDoc(window.firebaseCollections.doc(db, "usuarios", usuario.firestoreId), { saldos: usuario.saldos });
 }
 }
@@ -921,9 +942,9 @@ return;
 let html = "";
 lista.forEach((h) => {
 let realIndex = historialCuadresDB.indexOf(h);
-let ingresosStr = `$${(h.general.USD?.ingresos || 0).toFixed(2)} USD`;
-let egresosStr = `$${(h.general.USD?.egresos || 0).toFixed(2)} USD`;
-let netoStr = `USD: $${(h.general.USD?.neto || 0).toFixed(2)}`;
+let ingresosStr = `$${(h.general && h.general.USD ? h.general.USD.ingresos : 0).toFixed(2)} USD`;
+let egresosStr = `$${(h.general && h.general.USD ? h.general.USD.egresos : 0).toFixed(2)} USD`;
+let netoStr = `USD: $${(h.general && h.general.USD ? h.general.USD.neto : 0).toFixed(2)}`;
 html += `<tr><td><strong>${h.fecha}</strong></td><td style="font-size:0.8rem;">${ingresosStr}</td><td style="font-size:0.8rem; color:var(--danger);">${egresosStr}</td><td style="font-size:0.8rem; color:var(--accent-gold);">${netoStr}</td><td><button class="btn btn-gold" style="padding: 3px 8px; font-size:0.75rem;" onclick="verDetalleCuadre(${realIndex})">Ver</button></td></tr>`;
 });
 tbody.innerHTML = html;
@@ -965,21 +986,23 @@ function renderizarContenidoModalDesglose(h) {
 const filtroUsr = document.getElementById('filtroModalUsuario').value;
 const filtroMon = document.getElementById('filtroModalMoneda').value;
 let htmlResumen = '<strong>Balance General:</strong><br>';
+if(h.general) {
 for (let m in h.general) {
 let g = h.general[m];
-htmlResumen += `${m} Ingresos: ${g.ingresos.toFixed(2)} | Premios: ${g.egresos.toFixed(2)} | Neto: <strong>${g.neto.toFixed(2)}</strong><br>`;
+htmlResumen += `${m} Ingresos: ${(g.ingresos || 0).toFixed(2)} | Premios: ${(g.egresos || 0).toFixed(2)} | Neto: <strong>${(g.neto || 0).toFixed(2)}</strong><br>`;
+}
 }
 document.getElementById('modalHistorialResumenGral').innerHTML = htmlResumen;
 
 let tbodyClientes = document.getElementById('modalHistorialClientesBody');
 let htmlClientes = "";
-let clientesFiltrados = h.clientes.filter(c => (filtroUsr === 'TODOS' || c.cliente === filtroUsr) && (filtroMon === 'TODAS' || c.moneda === filtroMon));
+let clientesFiltrados = (h.clientes || []).filter(c => (filtroUsr === 'TODOS' || c.cliente === filtroUsr) && (filtroMon === 'TODAS' || c.moneda === filtroMon));
 if (clientesFiltrados.length === 0) {
 htmlClientes = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">Sin registros.</td></tr>`;
 } else {
 clientesFiltrados.forEach((c) => {
-let colorSaldo = c.saldo >= 0? 'var(--success)': 'var(--danger)';
-htmlClientes += `<tr><td><strong>${c.cliente}</strong></td><td>${c.moneda}</td><td>${c.apostado.toFixed(2)}</td><td style="color:var(--danger);">${c.ganado.toFixed(2)}</td><td><strong style="color:${colorSaldo};">${c.saldo.toFixed(2)}</strong></td></tr>`;
+let colorSaldo = (c.saldo || 0) >= 0? 'var(--success)': 'var(--danger)';
+htmlClientes += `<tr><td><strong>${c.cliente}</strong></td><td>${c.moneda}</td><td>${(c.apostado || 0).toFixed(2)}</td><td style="color:var(--danger);">${(c.ganado || 0).toFixed(2)}</td><td><strong style="color:${colorSaldo};">${(c.saldo || 0).toFixed(2)}</strong></td></tr>`;
 });
 }
 tbodyClientes.innerHTML = htmlClientes;
@@ -1025,12 +1048,13 @@ const monto = parseFloat(document.getElementById('saldoMontoInput').value);
 if (isNaN(monto) || monto <= 0) { alert("Monto inválido."); return; }
 let usuario = usuariosDB.find(u => u.nombre === nombreSeleccionado);
 if (!usuario) return;
+if(!usuario.saldos) usuario.saldos = { USD: 0, USDT: 0, BSF: 0 };
 if (tipo === 'recarga') {
-usuario.saldos[moneda] += monto;
+usuario.saldos[moneda] = (usuario.saldos[moneda] || 0) + monto;
 finanzas.recargas[moneda] = (finanzas.recargas[moneda] || 0) + monto;
 alert("¡Recarga exitosa!");
 } else {
-if (usuario.saldos[moneda] < monto) { alert("Saldo insuficiente."); return; }
+if ((usuario.saldos[moneda] || 0) < monto) { alert("Saldo insuficiente."); return; }
 usuario.saldos[moneda] -= monto;
 finanzas.retiros[moneda] = (finanzas.retiros[moneda] || 0) + monto;
 alert("¡Retiro procesado!");
@@ -1052,7 +1076,9 @@ const monto = parseFloat(document.getElementById('facturaMonto').value);
 const moneda = document.getElementById('facturaMoneda').value;
 if (!ejemplar || isNaN(monto) || monto <= 0) { alert("Complete ejemplar y monto válido."); return; }
 let usuario = usuariosDB.find(u => u.nombre === cliente);
-if (!usuario || usuario.saldos[moneda] < monto) { alert("Cliente inválido o sin saldo suficiente."); return; }
+if (!usuario) { alert("Cliente no encontrado."); return; }
+if(!usuario.saldos) usuario.saldos = { USD: 0, USDT: 0, BSF: 0 };
+if ((usuario.saldos[moneda] || 0) < monto) { alert("Cliente sin saldo suficiente en esta moneda."); return; }
 
 usuario.saldos[moneda] -= monto;
 finanzas.tickets[moneda] = (finanzas.tickets[moneda] || 0) + monto;
@@ -1099,7 +1125,7 @@ generalMonedas[m].ingresos += f.monto;
 if (!clientesMap[cli]) clientesMap[cli] = {};
 if (!clientesMap[cli][m]) clientesMap[cli][m] = { apostado: 0, ganado: 0 };
 clientesMap[cli][m].apostado += f.monto;
-if (f.estado.includes('Ganado')) {
+if (f.estado && f.estado.includes('Ganado')) {
 let premio = f.premioPagado || 0;
 generalMonedas[m].egresos += premio;
 clientesMap[cli][m].ganado += premio;
@@ -1137,7 +1163,7 @@ const mapTabs = {
 'tickets': ['view-tickets', 'nav-tickets', 'Historial de Tickets Emitidos'],
 'saldos': ['view-saldos', 'nav-saldos', 'Control, Recargas y Retiros'],
 'cuadre': ['view-cuadre', 'nav-cuadre', 'Cuadre General y Cierre'],
-'usuarios': ['view-usuarios', 'nav-usuarios', 'Administración de Jugadores'],
+'usuarios': ['view-usuarios', 'nav-usuarios', 'Gestión de Jugadores'],
 'cajeros': ['view-cajeros', 'nav-cajeros', 'Gestión de Cajeros'],
 'configuracion': ['view-config', 'nav-config', 'Configuración y Transmisiones']
 };
