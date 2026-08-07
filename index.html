@@ -1178,5 +1178,122 @@ function switchTab(tabName) {
     }
 }
 </script>
+    <!-- SCRIPT DE FIREBASE Y LÓGICA DEL SISTEMA -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, getDocs, setDoc, doc, addDoc, updateDoc, deleteDoc, query, where, Timestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AlzaSyAAB3hP9mkf471SaGdxrvlWKO5TYaYf46M",
+    authDomain: "grupoca-10621.firebaseapp.com",
+    projectId: "grupoca-10621",
+    storageBucket: "grupoca-10621.firebasestorage.app",
+    messagingSenderId: "274483838227",
+    appId: "1:274483838227:web:692ae7d453fd5da6df6ee6"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Utilidad estandarizada de fecha local YYYY-MM-DD
+function obtenerFechaLocal(fecha = new Date()) {
+    const anio = fecha.getFullYear();
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    return `${anio}-${mes}-${dia}`;
+}
+
+// CORRECCIÓN: Forzar siempre la fecha actual del sistema al iniciar
+window.fechaSeleccionadaGlobal = obtenerFechaLocal();
+
+window.cajerosDB = [{ id: "cajero_def", nombre: "Cajero Principal", usuario: "cajero1", clave: "1234" }];
+window.usuariosDB = [
+    { id: "#U-001", nombre: "Carlos Mendoza", alias: "cmendoza", saldos: { USD: 450.00, USDT: 100.00, BSF: 5000.00 } },
+    { id: "#U-002", nombre: "Alejandro Rivas", alias: "arivas", saldos: { USD: 1200.00, USDT: 500.00, BSF: 0.00 } }
+];
+window.facturasDB = [];
+window.finanzas = { recargas: { USD: 0, USDT: 0, BSF: 0 }, retiros: { USD: 0, USDT: 0, BSF: 0 }, tickets: { USD: 0, USDT: 0, BSF: 0 } };
+window.historialCuadresDB = [];
+window.streamsDB = [{ id: "stream_1", titulo: "Gulfstream Park - Señal Principal", url: "https://www.youtube.com/embed/jfKfPfyJRdk" }];
+window.tracksList = [
+    "Woodbine", "Fort Erie", "Century Mile", "Century Downs", "Hastings", "Assiniboia", "Saratoga", "Belmont", "Aqueduct", "Churchill Downs",
+    "Keeneland", "Kentucky Downs", "Santa Anita", "Del Mar", "Gulfstream Park", "Tampa Bay Downs", "Pimlico", "Laurel Park", "Monmouth", "Meadowlands",
+    "Oaklawn", "Parx", "Fair Grounds", "Delta Downs", "Lone Star", "Hawthorne", "Emerald Downs", "Golden Gate"
+];
+window.hipodromosActivos = ['Gulfstream Park', 'Saratoga', 'Santa Anita', 'Woodbine', 'Churchill Downs'];
+window.usuarioActual = null;
+window.ticketSeleccionadoIndex = null;
+window.modalHistorialIndexActual = null;
+
+// CARGA INICIAL DE CONFIGURACIÓN Y DATOS ESTÁTICOS
+async function cargarDatosEstaticosNube() {
+    try {
+        const cajerosSnap = await getDocs(collection(db, "cajeros"));
+        if (!cajerosSnap.empty) window.cajerosDB = cajerosSnap.docs.map(d => ({ firestoreId: d.id, ...d.data() }));
+
+        const usuariosSnap = await getDocs(collection(db, "usuarios"));
+        if (!usuariosSnap.empty) window.usuariosDB = usuariosSnap.docs.map(d => ({ firestoreId: d.id, ...d.data() }));
+
+        const streamsSnap = await getDocs(collection(db, "streams"));
+        if (!streamsSnap.empty) window.streamsDB = streamsSnap.docs.map(d => ({ firestoreId: d.id, ...d.data() }));
+
+        const cuadresSnap = await getDocs(collection(db, "historialCuadres"));
+        if (!cuadresSnap.empty) window.historialCuadresDB = cuadresSnap.docs.map(d => ({ firestoreId: d.id, ...d.data() }));
+
+        const configSnap = await getDocs(collection(db, "configuracion"));
+        configSnap.forEach(d => {
+            const data = d.data();
+            if (data.hipodromosActivos) window.hipodromosActivos = data.hipodromosActivos;
+        });
+    } catch (e) { console.error("Error al sincronizar datos estáticos:", e); }
+}
+
+// CARGA FILTRADA POR FECHA (RANGO DE DÍA EN FIRESTORE)
+window.cargarDatosPorFechaNube = async function(fechaStr) {
+    const inicioDia = new Date(`${fechaStr}T00:00:00`);
+    const finDia = new Date(`${fechaStr}T23:59:59`);
+
+    try {
+        const qTickets = query(collection(db, "facturas"), where("timestamp", ">=", inicioDia), where("timestamp", "<=", finDia));
+        const facturasSnap = await getDocs(qTickets);
+        window.facturasDB = [];
+        facturasSnap.forEach(d => {
+            window.facturasDB.push({ firestoreId: d.id, ...d.data() });
+        });
+
+        window.finanzas = { recargas: { USD: 0, USDT: 0, BSF: 0 }, retiros: { USD: 0, USDT: 0, BSF: 0 }, tickets: { USD: 0, USDT: 0, BSF: 0 } };
+        window.facturasDB.forEach(f => {
+            if(f.moneda && f.monto && !f.estado.includes('Anulado')) {
+                if(!window.finanzas.tickets[f.moneda]) window.finanzas.tickets[f.moneda] = 0;
+                window.finanzas.tickets[f.moneda] += f.monto;
+            }
+        });
+    } catch (e) { console.error("Error al cargar datos filtrados por fecha:", e); }
+
+    if (typeof renderApp === 'function') renderApp();
+}
+
+window.db = db;
+window.firebaseCollections = { collection, getDocs, setDoc, doc, addDoc, updateDoc, deleteDoc };
+
+cargarDatosEstaticosNube().then(() => {
+    // Asignar dinámicamente la fecha actual a los selectores visuales de fecha en pantalla
+    const inputGlobal = document.getElementById('filtroFechaGlobal');
+    if(inputGlobal) inputGlobal.value = window.fechaSeleccionadaGlobal;
+    
+    const inputCierre = document.getElementById('cierreFechaInput');
+    if(inputCierre) inputCierre.value = window.fechaSeleccionadaGlobal;
+
+    // Cargar los registros correspondientes al día de hoy en curso
+    window.cargarDatosPorFechaNube(window.fechaSeleccionadaGlobal);
+});
+
+window.cambiarFechaGlobal = function(nuevaFecha) {
+    if (!nuevaFecha) return;
+    window.fechaSeleccionadaGlobal = nuevaFecha;
+    const inputCierre = document.getElementById('cierreFechaInput');
+    if(inputCierre) inputCierre.value = nuevaFecha;
+    window.cargarDatosPorFechaNube(nuevaFecha);
+}
+</script>
 </body>
 </html>
