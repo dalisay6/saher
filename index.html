@@ -1126,7 +1126,7 @@ let cData = clientesMap[cli][m];
 clientesList.push({ cliente: cli, moneda: m, apostado: cData.apostado, ganado: cData.ganado, saldo: cData.apostado - cData.ganado });
 }
 }
-let nuevoCuadre = { fecha: fechaCierre, timestamp: Timestamp.now(), general: generalMonedas, clientes: clientesList };
+let nuevoCuadre = { fecha: fechaCierre, timestamp: new Date().toISOString(), general: generalMonedas, clientes: clientesList };
 try {
 const docRef = await window.firebaseCollections.addDoc(window.firebaseCollections.collection(db, "historialCuadres"), nuevoCuadre);
 nuevoCuadre.firestoreId = docRef.id;
